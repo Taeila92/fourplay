@@ -5,7 +5,7 @@ import java.util.*;
 import svc.*;
 import vo.*;
 
-public class PdtListAction implements action.Action {
+public class PdtListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ArrayList<PdtInfo> pdtList = new ArrayList<PdtInfo>();
 		// 상품 목록을 저장할 ArrayList객체로 PdtInfo형 인스턴스만 저장함
@@ -19,13 +19,21 @@ public class PdtListAction implements action.Action {
 			psize = Integer.parseInt(request.getParameter("psize"));
 
 		// 검색조건 쿼리스트링을 받음
-		String keyword;
+		String keyword, bcata, scata, brand, sprice, eprice;
 		keyword = request.getParameter("keyword");	// 검색어
-
+		bcata	= request.getParameter("bcata");	// 대분류
+		scata	= request.getParameter("scata");	// 소분류
+		sprice	= request.getParameter("sprice");	// 가격대 중 시작 가격대
+		eprice	= request.getParameter("eprice");	// 가격대 중 종료 가격대
+		
 		// 정렬조건 : 가격price(오a내d), 상품명name(오a), 등록일date(내d), 인기salecnt(내d), 리뷰review(내d)
 		String ord = request.getParameter("ord");
-
-		String where = " and a.pl_view = 'y' ", orderby = ""; // 프론트일시 게시된 상품만 보이도록
+		String id = request.getParameter("id");
+		String where = " and a.pl_view = 'y' ", orderby = "";
+		if (bcata != null && !bcata.equals(""))		where += " and b.cb_idx = '" + bcata + "' ";
+		if (scata != null && !scata.equals(""))		where += " and a.cs_idx = '" + scata + "' ";
+		if (sprice != null && !sprice.equals(""))	where += " and a.pl_price >= '" + sprice + "' ";
+		if (eprice != null && !eprice.equals(""))	where += " and a.pl_price <= '" + eprice + "' ";
 		if (keyword != null && !keyword.equals(""))	where += " and a.pl_name like '%" + keyword + "%' ";
 		// 검색조건용 where절 생성
 
@@ -57,12 +65,13 @@ public class PdtListAction implements action.Action {
 
 		pageInfo.setKeyword(keyword);	// 검색어
 		pageInfo.setOrd(ord);			// 정렬조건
-
 		// 대분류, 소분류, 브랜드 목록을 가져오기 위한 Svc클래스
 		ArrayList<CataBigInfo> cataBigList = pdtListSvc.getCataBigList();		// 대분류 목록
 		ArrayList<CataSmallInfo> cataSmallList = pdtListSvc.getCataSmallList();	// 소분류 목록
+		ArrayList<PdtInfo> bestPdtList = pdtListSvc.getBestPdtList(scata);		// 베스트상품 목록
 
 		request.setAttribute("pdtList", pdtList);
+		request.setAttribute("bestPdtList", bestPdtList);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("cataBigList", cataBigList);
 		request.setAttribute("cataSmallList", cataSmallList);

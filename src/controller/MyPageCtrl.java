@@ -7,11 +7,9 @@ import javax.servlet.http.*;
 import action.*;
 import vo.*;
 
-
 @WebServlet("*.mpg")
 public class MyPageCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
     public MyPageCtrl() {
         super();
     }
@@ -21,13 +19,29 @@ public class MyPageCtrl extends HttpServlet {
 		String requestUri = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String command = requestUri.substring(contextPath.length());
-
 		ActionForward forward = null;
 		Action action = null;
 
+		HttpSession session = request.getSession();
+		MemberInfo loginMember = (MemberInfo)session.getAttribute("loginMember");
+		
 		switch (command) {
-			case "/order_list.mpg" :			// 주문내역 화면
-				action = new OrdListAction();		break;
+			case "/order_list.mpg" :		// 회원 주문내역 보기
+				if(loginMember != null) {	// 로그인한 상태이면
+					action = new OrdListAction();
+				}else {
+					response.sendRedirect("login_form.jsp");
+				}
+				break;
+			case "/non_order_list.mpg" :	// 비회원 주문조회
+				action = new NonOrdAction();
+				break;
+			case "/order_detail.mpg" :	// 회원 주문 상세내역 보기
+				action = new OrdDetailAction();
+				break;
+			case "/non_order_detail.mpg" :	// 비회원 주문 상세내역 보기
+				action = new NonDetailAction();
+				break;
 		}
 
 		try {
@@ -46,10 +60,12 @@ public class MyPageCtrl extends HttpServlet {
 			}
 		}
     }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
+
 }

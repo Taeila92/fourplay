@@ -32,6 +32,17 @@ public class PdtListSvc {
 
 		return pdtList;
 	}
+	public ArrayList<PdtInfo> getBestPdtList(String scata) {
+		ArrayList<PdtInfo> pdtList = new ArrayList<PdtInfo>();
+		// 상품 목록을 저장할 ArrayList객체로 PdtInfo형 인스턴스만 저장함
+		Connection conn = getConnection();
+		PdtDao pdtDao = PdtDao.getInstance();
+		pdtDao.setConnection(conn);
+		pdtList = pdtDao.getBestPdtList(scata);
+		close(conn);
+
+		return pdtList;
+	}
 	
 	public ArrayList<CataBigInfo> getCataBigList() {
 	// 대분류 목록을 ArrayList 형 인스턴스로 리턴하는 메소드

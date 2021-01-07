@@ -28,6 +28,8 @@ public class ProductCtrl extends HttpServlet {
     		switch (command) {
     			case "/pdt_list.pdt" :		// 상품 등록 폼
     				action = new PdtListAction();		break;
+    			case "/pdt_view.pdt" :			// 상품 상세 화면
+    				action = new PdtViewAction();		break;
     		}
 
     		try {

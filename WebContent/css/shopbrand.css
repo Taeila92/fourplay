@@ -1,0 +1,18 @@
+/* BASIC css start */
+#productClass { position: relative }
+
+#productClass .class-list { margin: 4px 0 32px;  }
+#productClass .class-list dt { text-align: center; }
+#productClass .class-list dt span {display: inline-block; text-align: center; min-width: 200px; font-size: 18px; color: #1e1e1e; padding: 12px 15px; border-top: 1px solid #dedede; border-bottom: 1px solid #dedede; }
+#productClass .class-list dd { text-align: left; overflow:hidden; }
+#productClass .class-list dd li { float:left; background:url(/design/custommood/deetong/line05.jpg) no-repeat 0 5px; padding-left:15px }
+#productClass .class-list dd li:first-child { background:none; padding-left:0px }
+#productClass .class-list dd a { display: inline-block; margin: 0 15px 0 0; font-family:µ¸¿ò;font-size:11px; color:#878787 }
+#productClass .class-list dd a:hover { color:#555}
+
+#productClass .best-item { padding-bottom:55px; border-bottom: 1px solid #d4d4d4 }
+#productClass .best-item li { position: relative; }
+#productClass .best-item h2 { text-align: center; color:#363636; font-weight:bold; font-size:20px; padding:45px 0 4px 0}
+
+
+/* BASIC css end */

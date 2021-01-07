@@ -1,0 +1,151 @@
+/* BASIC css start */
+/* ½ºÅ©·Ñ·¦ ¼û±è */
+#scrollWrap {display: none;}
+	
+/* Çì´õ */
+#header_wrap_rel {position: relative; width:100%;}	
+#header_wrap_fixed {  width:100%; display:none; position:fixed; z-index:2019; top:-13px; background:#fff; padding-bottom:10px }
+
+
+#hdWrap { }
+#hdWrap .hdArea { width:100%; overflow:hidden; height:50px; padding-top:10px }
+#hdWrap .hdArea a { color:#767676; font-family:µ¸¿ò; font-size:11px }
+#hdWrap .hdArea a:hover { color:#000 }
+#hdWrap .hdArea .comm { float:left; width:40%; }
+#hdWrap .hdArea .comm li { float:left; line-height:51px; padding-left:35px }
+#hdWrap .hdArea .comm li.sns img { margin:15px 8px 0 0 }
+#hdWrap .hdArea .logm { float:right; width:40%; text-align:right; }
+#hdWrap .hdArea .logm li { display:inline-block; line-height:51px; background:url(/design/custommood/deetong/line01.jpg) no-repeat 0 22px; padding:0px 9px 0 14px; }
+#hdWrap .hdArea .logm li.first { background:none }
+#hdWrap .hdArea .logm li.last { padding-right:32px }
+
+#hdWrap .logo2 { text-align:center; width:100%; height:76px; margin:35px 0 30px; position:relative;}
+#hdWrap .logo2 .logo_img { }
+
+#hdWrap .logo2 .rm { position:absolute; right:34px; top:33px }
+#hdWrap .logo2 .rm .MS_search_word { width:120px; height:20px; border-bottom:1px solid #000; border-top:0px; border-left:0px; border-right:0px; }
+
+
+#main-top_bank_info1 { margin-left:-145px; width:170px; }
+#main-top_bank_info1 ul li { float:left; background:#fff }
+#main-top_bank_info1 .scx { font-size:22px; font-family:verdana; color:#000; padding-left:7px; line-height:16px }
+
+
+.tm { width:100%; text-align:center; margin:20px 0 0; position:relative }
+.tm .box { width:1203px; height:60px; overflow:hidden; margin:0 auto; }
+.tm .box li { float:left; display:inline-block; text-align:center; }
+.tm .box li a { display:inline-block;font-family:'Roboto', sans-serif; font-size:13px; color:#000; font-weight:500; padding:0 8px; height:60px; line-height:60px; border-bottom:4px solid #fff; box-sizing:border-box;}
+
+.m01 { width:165px }
+.m02 { width:165px }
+.m03 { width:188px }
+.m04 { width:134px }
+.m05 { width:148px }
+.m06 { width:175px }
+.m07 { width:228px }
+
+#p01 { width:100%; background:#fff; position:absolute; z-index: 99999; visibility: hidden; top:0px; }
+#p01 .box { width:1203px; height:60px; overflow:hidden; margin:0 auto; }
+#p01 .box li { float:left; display:inline-block; text-align:center; }
+#p01 .box li a { display:inline-block; font-family:'Roboto', sans-serif; font-size:13px; color:#000; font-weight:500; padding:0 8px; height:60px; line-height:60px; border-bottom:4px solid #fff; box-sizing:border-box;}
+#p01 .box li a:hover { border-bottom:4px solid #bd9644; color:#bd9644 } 
+#p01 .boxline { width:100%; height:1px; background:#ededed }
+#p01 .sub_box { width:1203px; overflow:hidden; margin:0 auto; padding:15px 0; border-bottom:1px solid #ededed }
+#p01 .sub_box li { float:left; display:inline-block; text-align:center; }
+#p01 .sub_box li a { display:block; font-family: 'Roboto','Nanum Gothic', sans-serif; font-size:13px; color:#303030; height:35px; line-height:35px; }
+#p01 .sub_box li a:hover { color:#bd9644 } 
+
+
+#p02 { width:100%; background:#fff; position:absolute; z-index: 99999; visibility: hidden; top:0px; }
+#p02 .box { width:1203px; height:60px; overflow:hidden; margin:0 auto; }
+#p02 .box li { float:left; display:inline-block; text-align:center; }
+#p02 .box li a { display:inline-block; font-family:'Roboto', sans-serif; font-size:13px; color:#000; font-weight:500; padding:0 8px; height:60px; line-height:60px; border-bottom:4px solid #fff; box-sizing:border-box;}
+#p02 .box li a:hover { border-bottom:4px solid #bd9644; color:#bd9644 } 
+#p02 .boxline { width:100%; height:1px; background:#ededed }
+#p02 .sub_box { width:1203px; overflow:hidden; margin:0 auto; padding:15px 0; border-bottom:1px solid #ededed }
+#p02 .sub_box li { float:left; display:inline-block; text-align:center; }
+#p02 .sub_box li a { display:block; font-family: 'Roboto','Nanum Gothic', sans-serif; font-size:13px; color:#303030; height:35px; line-height:35px; }
+#p02 .sub_box li a:hover { color:#bd9644 } 
+
+
+
+/*************************************************/
+/* ¿ìÃø ¸Þ´º */
+/*************************************************/
+#UIF_RightArea { position:fixed; top:0; right:0; height:100%; width:200px; background:#fff; z-index:190; color:#000; border-left:1px solid #ccc; }
+#UIF_RightArea {
+	visibility: visible;
+	-ms-transform: translate(98%, 0);
+	-moz-transform: translate3d(98%, 0, 0);
+	-o-transform: translate3d(98%, 0, 0);
+	-webkit-transform: translate3d(98%, 0, 0);
+	transform: translate3d(98%, 0, 0);
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+}
+#UIF_RightArea.RightOpen {
+	visibility: visible;
+	-ms-transform: translate(0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+#UIF_RightArea .RightAreaBtn { position:absolute; display:block; width:25px; height:40px; top:calc(51% - 20px); left:-26px; background:#fff url(/design/custommood/deetong/rarr2.png) no-repeat 6px 12px; color:transparent; cursor:pointer; border-radius:3px 0 0 3px; border:1px solid #ccc; border-right:0px}
+#UIF_RightArea .RightAreaBtn::before { display:block; height:40px; line-height:40px; font-size:20px; text-align:center; content: "\f105"; font-family:'FontAwesome'; }
+#UIF_RightArea .RightAreaBtn:hover { box-shadow:-1px 1px 2px rgba(0,0,0,0.2); }
+#UIF_RightArea.RightOpen .RightAreaBtn { background:#fff url(/design/custommood/deetong/rarr1.png) no-repeat 6px 12px;  }
+#UIF_RightArea.RightOpen .RightAreaBtn::before { /*content: "\f105";*/ font-family:'FontAwesome'; }
+
+
+.r_tit { font-family:'Roboto', sans-serif; font-size:10px; color:#3a3a3a; text-align:center; padding-top:11px }
+.r_tit strong { font-size:15px; display:block; font-family:Nanum Gothic; padding:4px 0 14px }
+
+
+.clsBanner {position:relative; margin-left:7px; height:126px; }
+.clsBannerButton {z-index:999; position:absolute; cursor:pointer;}
+.clsBannerButton .bleft { position:absolute;top:47px;left:7px }
+.clsBannerButton .bright { position:absolute;top:47px;left:170px }
+.clsBannerScreen {z-index:1}
+.clsBannerScreen div {display:none} 
+
+
+.r_notice { margin-top:12px; padding-left:8px }
+.r_notice h2 a { font-size:11px; font-family:'Roboto', sans-serif; color:#000; font-weight:500 }
+.r_notice div { width:180px; margin:4px 0 0 1px; }
+.r_notice div li { widtH:180px; border-bottom:1px solid #eee; height:23px; line-height:23px; background:url(/design/custommood/deetong/r_img6.jpg) no-repeat 3px 9px; padding-left:24px }
+.r_notice div a { font-size:11px; font-family:µ¸¿ò; color:#777;}
+
+.r_cacao { margin-top:30px; padding-left:8px; }
+.r_cacao h2 { font-size:11px; font-family:'Roboto', sans-serif; color:#000; font-weight:500 }
+.r_cacao .rline { width:12px; height:1px; background:#000; display:block; margin:8px 0 10px 2px }
+.r_cacao .box { background:url(/design/custommood/deetong/r_img1.jpg) no-repeat 1px 6px; color:#545454; line-height:17px; font-family:µ¸¿ò; font-size:11px; height:50px; padding-left:35px; padding-top:14px  }
+.r_cacao .box span { color:#878787 }
+
+.r_sns { margin-top:24px; padding-left:8px; }
+.r_sns h2 { font-size:11px; font-family:'Roboto', sans-serif; color:#000; font-weight:500 }
+.r_sns .rline { width:12px; height:1px; background:#000; display:block; margin:8px 0 10px 2px }
+.r_sns span img { margin:4px 6px 0 0 }
+
+.r_cm { margin-top:37px; padding-left:8px; }
+.r_cm h2 { font-size:11px; font-family:'Roboto', sans-serif; color:#000; font-weight:500 }
+.r_cm .rline { width:12px; height:1px; background:#000; display:block; margin:8px 0 16px 2px }
+.r_cm a { color:#878787; display:block; font-size:11px; font-family:µ¸¿ò; height:20px; line-height:20px; margin-left:2px }
+
+.r_call { margin-top:33px; padding-left:8px; }
+.r_call h2 { font-size:11px; font-family:'Roboto', sans-serif; color:#000; font-weight:500 }
+.r_call .rline { width:12px; height:1px; background:#000; display:block; margin:8px 0 12px 2px }
+.r_call strong { display:block; font-size:14px; font-family:'Roboto', sans-serif; color:#000; font-weight:500; }
+.r_call .tx { font-size:11px; color:#878787; font-family:'Roboto', sans-serif; line-height:16px; margin-top:2px }
+.r_call .tx span { color:#525252 }
+
+.r_help { margin-top:38px; padding-left:8px; }
+.r_help h2 { font-size:11px; font-family:'Roboto', sans-serif; color:#000; font-weight:500 }
+.r_help .rline { width:12px; height:1px; background:#000; display:block; margin:8px 0 15px 2px }
+.r_help .tx { line-height:20px; color:#878787; font-family:µ¸¿ò; font-size:11px; padding-left:2px }
+
+
+
+/* BASIC css end */

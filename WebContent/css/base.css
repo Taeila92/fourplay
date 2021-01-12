@@ -1,0 +1,14 @@
+body {
+	color:#000000; font-size:12px; line-height:1.2;
+	font-family:"µ¸¿ò", Dotum, "±¼¸²", Gulim, Verdana, sans-serif;
+}
+
+a:link{ color:#4f4f4f; text-decoration:none; }
+a:visited{ color:#4f4f4f; text-decoration:none; }
+a:hover{ color:#f00; text-decoration:underline; }
+a:active{ color:#f00; text-decoration:none; }
+a:focus{ color:#f00; text-decoration:underline; }
+
+.hand { cursor:pointer; } 
+
+

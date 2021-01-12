@@ -15,4 +15,14 @@ public class LoginSvc {
 
 		return loginMember;
 	}
+	public AdminInfo getAdminMember(String uid, String pwd) {
+		System.out.println("svc getAdminMember");
+		LoginDao loginDao = LoginDao.getInstance();
+		Connection conn = getConnection();
+		loginDao.setConnection(conn);
+		AdminInfo adminMember = loginDao.getAdminMember(uid, pwd);
+		close(conn);
+
+		return adminMember;
+	}
 }

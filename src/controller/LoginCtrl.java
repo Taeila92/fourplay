@@ -4,36 +4,39 @@ import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import svc.*;	
-import vo.*;	
+import svc.*;   
+import vo.*;   
 
 @WebServlet("/login")
 public class LoginCtrl extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
     public LoginCtrl() {
         super();
     }
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		String uid = request.getParameter("uid");
-		String pwd = request.getParameter("pwd");
-		
-		LoginSvc loginSvc = new LoginSvc();
-		MemberInfo loginMember = loginSvc.getLoginMember(uid, pwd);
-		
-		if (loginMember != null) {	
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
-			response.sendRedirect("index.jsp");
-		} else {	
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out = response.getWriter();
-
-			out.println("<script>");
-			out.println("alert('Î°úÍ∑∏Ïù∏Ïóê Ïã§Ìå®ÌñàÏäµÎãàÎã§.');");
-			out.println("history.back();");
-			out.println("</script>");
-		}
-	}
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      request.setCharacterEncoding("utf-8");
+      String uid = request.getParameter("uid");
+      String pwd = request.getParameter("pwd");
+      LoginSvc loginSvc = new LoginSvc();
+      MemberInfo loginMember = loginSvc.getLoginMember(uid, pwd);
+      if (loginMember != null) {   
+         HttpSession session = request.getSession();
+         session.setAttribute("loginMember", loginMember);
+         response.sendRedirect("index.jsp");
+      } else {   // ¿œπ› »∏ø¯¿Ã æ∆¥œ∏È
+         AdminInfo adminMember = loginSvc.getAdminMember(uid, pwd);
+         if (adminMember != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("adminMember", adminMember);
+            response.sendRedirect("admin/a_index.jsp");
+         } else {   // ¿œπ›»∏ø¯µµ, ∞¸∏Æ¿⁄∞Ë¡§µµ æ∆¥œ∏È
+            response.setContentType("text/html;charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("alert('∑Œ±◊¿Œø° Ω«∆–«ﬂΩ¿¥œ¥Ÿ.');");
+            out.println("history.back();");
+            out.println("</script>");
+         }
+      }
+   }
 }

@@ -19,18 +19,16 @@ public class LoginDao {
 	public void setConnection(Connection conn) {
 		this.conn = conn;
 	}
-	public MemberInfo getLoginMember(String uid, String pwd) {
+	public MemberInfo getLoginMember(String uid, String pwd) {	// ÀÏ¹İ È¸¿ø ·Î±×ÀÎÀ» Ã³¸®ÇÏ´Â ¸Ş¼Òµå
 		MemberInfo loginMember = null;	
 		Statement stmt = null;
 		ResultSet rs = null;
 
 		try {
 			stmt = conn.createStatement();
-			String sql = "select * from t_member_list " + 
-				" where ml_status = 'a' and ml_id = '" + uid + 
-				"' and ml_pwd = '" + pwd + "'";
+			String sql = "select * from t_member_list " + " where ml_status = 'a' and ml_id = '" + uid + "' and ml_pwd = '" + pwd + "'";
 			rs = stmt.executeQuery(sql);
-			if (rs.next()) {	// ë¡œê·¸ì¸ ì„±ê³µì‹œ
+			if (rs.next()) {	
 				loginMember = new MemberInfo();
 				loginMember.setMlid(uid);
 				loginMember.setMlpwd(pwd);
@@ -43,17 +41,47 @@ public class LoginDao {
 				loginMember.setMllast(rs.getString("ml_last"));
 				loginMember.setMlstatus("a");
 				loginMember.setMlpoint(rs.getInt("ml_point"));
-			}
+			} 
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				close(rs);		close(stmt);
 			} catch(Exception e) {
-				e.printStackTrace();
+				System.out.println("getLoginMember() ¿À·ù"); e.printStackTrace();
 			}
 		}
 
 		return loginMember;
+	}
+	public AdminInfo getAdminMember(String uid, String pwd) {	// °ü¸®ÀÚ °èÁ¤ ·Î±×ÀÎÀ» Ã³¸®ÇÏ´Â ¸Ş¼Òµå
+		AdminInfo adminMember = null;	
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = conn.createStatement();
+			String sql = "select * from t_admin_list where al_status = 'b' and al_id = '" + uid + "' and al_pwd = '" + pwd + "' ";
+			System.out.println(sql);
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {	// °ü¸®ÀÚ °èÁ¤ÀÌ¸é
+				adminMember = new AdminInfo();
+				adminMember.setAl_idx(rs.getInt("al_idx"));
+				adminMember.setAl_id(uid);
+				adminMember.setAl_pwd(pwd);
+				adminMember.setAl_name(rs.getString("al_name"));
+				adminMember.setAl_email(rs.getString("al_email"));
+				adminMember.setAl_phone(rs.getString("al_phone"));
+			} 
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close(rs);		close(stmt);
+			} catch(Exception e) {
+				System.out.println("getAdminMember() ¿À·ù"); e.printStackTrace();
+			}
+		}
+		return adminMember;
 	}
 }

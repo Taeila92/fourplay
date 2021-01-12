@@ -36,6 +36,6 @@ if (loginMember == null) {
 <hr />
 <a href="cart_list.crt">장바구니- 프론트</a>
 <hr />
-<a href="wish_list.crt">위시리스트- 프론트</a>
+<a href="wish_list.crt">위시리스트- 프론트test</a>
 </body>
 </html>

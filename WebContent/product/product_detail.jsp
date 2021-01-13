@@ -75,7 +75,7 @@ function goWish() {	// 위시리스트 담기 버튼 클릭시
 		frm.submit();
 <%	} else {%>
 		if(confirm("로그인이 필요합니다. \n 로그인 하시겠습니까?")){
-			frm.action = "login_form.jsp";
+			frm.action = "login_form.jsp<%=args%>";
 			frm.submit();
 		}
 <%	}%>

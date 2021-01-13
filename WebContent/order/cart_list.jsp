@@ -33,6 +33,7 @@ if (ord != null && !ord.equals(""))			args += "&ord=" + ord;
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="jquery-3.5.1.js"></script>
 <script>
 function notCool(idx){
 	if (confirm("해당 상품을 장바구니에서 삭제하시겠습니까?")){
@@ -50,6 +51,7 @@ function chkAll(all){
 </script>
 </head>
 <body>
+<h2>MY CART</h2><div>HOME > <strong>장바구니</strong></div>
 <form name="frmCart" action="ord_form.rod" method="post">
 <table width="700" cellpadding="5">      
 <tr>
@@ -66,13 +68,13 @@ if (cartList != null && cartList.size() > 0) {	// 장바구니에 데이터가 �
 		String msg = "";
 		if (max == -1)		max = 100;	// 수량 선택 최대값으로 재고량이 무제한인 상품의 최대값
 		else if (cartList.get(i).getPs_stock() < cartList.get(i).getCl_cnt()) {
-			msg = "선택하신 구매수량이 재고량을 초과하였으므로 재고량만큼만 가져가슈.";
+			msg = "선택하신 구매수량이 재고량을 초과하였습니다.";
 		}
 %>
 <tr>
 <td><input type="checkbox" name="chk" value="<%=cartList.get(i).getCl_idx() %>" checked="checked" /></td>
 <td align="left">
-	<%=lnk%><img src="/mvcMall/product/pdt_img/<%=cartList.get(i).getPl_img1() %>" width="50" />
+	<%=lnk%><img src="/fourplay/product/pdt_img/<%=cartList.get(i).getPl_img1() %>" width="50" />
 	<%=cartList.get(i).getPl_name() %></a>
 </td>
 <td>
@@ -117,7 +119,7 @@ if (cartList != null && cartList.size() > 0) {	// 장바구니에 데이터가 �
 	총구매가격
 <%
 } else {	// 장바구니에 데이터가 없으면
-	out.println("<tr><td colspan='5'>장바구니가 비었습니다.</td></tr>");
+	out.println("<tr><td colspan='6'>장바구니가 비었습니다.</td></tr>");
 }
 %>
 </table>

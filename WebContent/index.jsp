@@ -18,16 +18,16 @@ session.setMaxInactiveInterval(1800);
 </head>
 <body>
 <%
-if (loginMember == null) {	//일반 회원 로그인이 되어있지 않으면
-	if(adminMember != null){	//관리자 계정 로그인이 되어있으면
-		out.println(adminMember.getAl_id() +"("+ adminMember.getAl_name() + ") 님 환영합니다.<br />");
-		out.println("<a href=\"logout\">로그아웃</a>");
-		out.println("<a href=\"admin/a_index.jsp\">어드민으로 이동</a>");
-	} else{		// 일반회원도, 관리자 계정도 로그인되어 있지 않으면 
+if (loginMember == null) {   //일반 회원 로그인이 되어있지 않으면
+   if(adminMember != null){   //관리자 계정 로그인이 되어있으면
+      out.println(adminMember.getAl_id() +"("+ adminMember.getAl_name() + ") 님 환영합니다.<br />");
+      out.println("<a href=\"logout\">로그아웃</a>");
+      out.println("<a href=\"admin/a_index.jsp\">어드민으로 이동</a>");
+   } else{      // 일반회원도, 관리자 계정도 로그인되어 있지 않으면 
 %>
 <a href="login_form.jsp">로그인</a>
 <%
-	}
+   }
 } else {
 %>
 <%=loginMember.getMlid() + "(" + loginMember.getMlname() + ")" %>
@@ -39,11 +39,6 @@ if (loginMember == null) {	//일반 회원 로그인이 되어있지 않으면
 %>
 <hr />
 <a href="order_list.mpg">주문내역조회- 프론트</a>
-<form name="frm" action="non_order_list.mpg" method="post">
-주문자 : <input type="text" name="bname" />
-주문번호: <input type="text" name="olid" />
-<input type="submit" name="확인" />
-</form>
 <hr />
 <a href="pdt_list.pdt">상품내역- 프론트</a>
 <hr />

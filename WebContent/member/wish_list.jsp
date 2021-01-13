@@ -33,13 +33,14 @@ if (ord != null && !ord.equals(""))			args += "&ord=" + ord;
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="jquery-3.5.1.js"></script>
 <script>
-function notCool(idx) {
+function notCool(id) {
 	if (confirm("해당 상품을 위시리스트에서 삭제하시겠습니까?")) {
 		$.ajax({
 			type : "POST", 
 			url : "/fourplay/wish_del.crt", 
-			data : { "idx" : idx }, 
+			data : { "id" : id }, 
 			success : function(chkRst) {
 				if(chkRst == 0)		alert("선택한 상품 삭제에 실패했습니다.\n다시 시도해 주십시오.");
 				else				location.reload();
@@ -50,7 +51,7 @@ function notCool(idx) {
 </script>
 </head>
 <body>
-<form name="frmWish" action="ord_form.rod" method="post">
+<form name="frmWish" action="" method="post">
 <table width="700" cellpadding="5">      
 <tr>
 <th width="*%">상품</th><th width="20%">적립금</th><th width="20%">가격</th>
@@ -63,7 +64,7 @@ if (wishList != null && wishList.size() > 0) {	// 위시리스트에 데이터�
 %>
 <tr>
 <td align="left">
-	<%=lnk%><img src="/mvcMall/product/pdt_img/<%=wishList.get(i).getPl_img1() %>" width="50" height="50" align="absmiddle" />
+	<%=lnk%><img src="/fourplay/product/pdt_img/<%=wishList.get(i).getPl_img1() %>" width="50" height="50" align="absmiddle" />
 	<%=wishList.get(i).getPl_name() %></a>
 </td>
 <td align="center"><%=wishList.get(i).getPrice() / 100 %></td>
@@ -75,7 +76,7 @@ if (wishList != null && wishList.size() > 0) {	// 위시리스트에 데이터�
 <%
 	}
 } else {	// 위시리스트에 데이터가 없으면
-	out.println("<tr><td colspan='4'>위시리스트가 비었습니다.</td></tr>");
+	out.println("<tr><td colspan='4' align='center'>위시리스트가 비었습니다.</td></tr>");
 }
 %>
 <tr><th colspan="4" align="center">

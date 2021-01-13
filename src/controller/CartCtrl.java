@@ -21,10 +21,9 @@ public class CartCtrl extends HttpServlet {
     		String requestUri = request.getRequestURI();
     		String contextPath = request.getContextPath();
     		String command = requestUri.substring(contextPath.length());
-
+    		
     		ActionForward forward = null;
     		Action action = null;
-
     		// 사용자의 요청 종류에 따라 각각 다른 action을 취함
     		switch (command) {
 			case "/cart_in.crt" :			// 장바구니 등록 기능

@@ -10,23 +10,13 @@ public class WishInAction implements Action {
 		public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			request.setCharacterEncoding("utf-8");
 			String plid = request.getParameter("id");		// 상품아이디
-			String price = request.getParameter("price");	// 실구매가
-			String optValue = "";
-
-			String buyer, isMember = "n";
+			String buyer = "";
 			HttpSession session = request.getSession();
 			MemberInfo loginMember = (MemberInfo)session.getAttribute("loginMember");
-			if (loginMember == null) {	// 비회원이면
-				buyer = session.getId();
-			} else {	// 회원일 경우
-				buyer = loginMember.getMlid();
-				isMember = "y";
-			}
-			
+			buyer = loginMember.getMlid();
 			CartInfo cart = new CartInfo();
 			cart.setMl_id(buyer);
 			cart.setPl_id(plid);
-			
 			WishInSvc wishInSvc = new WishInSvc();
 			int result = wishInSvc.wishInsert(cart);
 			if (result == 0) {	// 위시리스트 등록에 실패했으면

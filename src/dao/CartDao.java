@@ -92,7 +92,25 @@ public class CartDao {
 
 		return cartList;		
 	}
-	
+	public int cartCntUpdate( String idx, String cnt, String buyer, String isMember) {
+		// 사용자가 선택한 상품의 수량을 변경하는 메소드
+			int result = 0;
+			Statement stmt = null;
+
+			try {
+				stmt = conn.createStatement();
+				String sql = "update t_cart_list set cl_cnt = '" + cnt + "' where cl_buyer = '" + 
+					buyer + "' and cl_ismember = '" + isMember + "' and cl_idx = " + idx;
+
+				result = stmt.executeUpdate(sql);
+			} catch(Exception e) {
+				System.out.println("cartCntUpdate() 오류");		e.printStackTrace();
+			} finally {
+				close(stmt);
+			}
+
+			return result;
+		}
 
    public int wishInsert(CartInfo cart) {
 		// 사용자가 선택한 상품을 장바구니에 담는 메소드

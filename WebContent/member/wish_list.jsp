@@ -35,7 +35,7 @@ if (ord != null && !ord.equals(""))			args += "&ord=" + ord;
 <title>Insert title here</title>
 <script src="jquery-3.5.1.js"></script>
 <script>
-function notCool(id) {
+function wishDel(id) {
 	if (confirm("해당 상품을 위시리스트에서 삭제하시겠습니까?")) {
 		$.ajax({
 			type : "POST", 
@@ -70,7 +70,7 @@ if (wishList != null && wishList.size() > 0) {	// 위시리스트에 데이터�
 <td align="center"><%=wishList.get(i).getPrice() / 100 %></td>
 <td align="center"><%=wishList.get(i).getPrice() %></td>
 <td>
-	<input type="button" value="삭제" onclick="notCool(<%=wishList.get(i).getWl_id() %>)" />
+	<input type="button" value="삭제" onclick="wishDel(<%=wishList.get(i).getWl_id() %>)" />
 </td>
 </tr>
 <%

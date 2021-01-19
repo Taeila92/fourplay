@@ -64,10 +64,10 @@ if(ordList != null && rcnt > 0){
 		if(opt == null)		opt = "옵션없음";
 		
 		if (j == ordList.get(i).getOrdDetailList().size() -1)	{
-			out.print("<a href='/product/product_detail.jsp?id="+plid+"'>" 
+			out.print("<a href='pdt_view.pdt?id="+plid+"'>" 
 			+ plname + "<br />[" + opt + "]</a><br />");
 		}else {
-			out.print("<a href='/product/product_detail.jsp?id=" + plid + "'>" 
+			out.print("<a href='pdt_view.pdt?id=" + plid + "'>" 
 					+ plname + "<br />[" + opt + "]</a>, <br />");
 		}
 	} %>

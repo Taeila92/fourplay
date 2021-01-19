@@ -34,11 +34,11 @@ public class AProductCtrl extends HttpServlet {
 		// 사용자의 요청 종류에 따라 각각 다른 action을 취함
 		switch (command) {
 			case "/pdt_in_form.pdta" :		// 상품 등록 폼
-//				action = new APdtInFormAction();	break;
+				action = new APdtInFormAction();	break;
 			case "/pdt_in_proc.pdta" :		// 상품 등록 처리
 	//			action = new APdtInProcAction();	break;
 			case "/pdt_list.pdta" :			// 상품 목록 화면
-		//		action = new APdtListAction();		break;
+				action = new APdtListAction();		break;
 			case "/pdt_view.pdta" :			// 상품 보기 화면
 //				action = new APdtViewAction();		break;
 			case "/pdt_up_form.pdta" :		// 상품 수정 폼

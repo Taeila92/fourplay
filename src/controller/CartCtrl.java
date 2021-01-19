@@ -32,6 +32,8 @@ public class CartCtrl extends HttpServlet {
 				action = new CartListAction();		break;
 			case "/cart_up_cnt.crt" :		// 장바구니 수량 수정 옵션 기능
 				action = new CartUpCntAction();		break;
+			case "/cart_del.crt" :			// 장바구니 삭제기능
+				action = new CartDelAction();		break;
 			case "/wish_in.crt" :			// 위시리스트 등록기능
 				action = new WishInAction();		break;
 			case "/wish_del.crt" :			// 위시리스트 삭제기능

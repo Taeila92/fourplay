@@ -55,10 +55,10 @@ function ordCancel(olid){
 		String opt = ordInfo.getOrdDetailList().get(i).getOd_opt();
 		if(opt == null)		opt = "옵션없음";
 		if(i == ordInfo.getOrdDetailList().size() -1){	//해당 주문의 마지막 상품이면
-			out.print("<a href='/product/product_detail.jsp?id=" + plid + "'>"
+			out.print("<a href='pdt_view.pdt?id="+plid+"'>"
 				+ plname + "<br />[" + opt + "]</a> <br />");
 		} else {
-			out.print("<a href='/product/product_detail.jsp?id=" + plid + "'>"
+			out.print("<a href='pdt_view.pdt?id="+plid+"'>"
 					+ plname + "<br />[" + opt + "]</a>, <br />");
 		}
 	} 

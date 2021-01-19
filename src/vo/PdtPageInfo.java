@@ -123,5 +123,4 @@ public class PdtPageInfo {
 		this.ord = ord;
 	}
 
-
 }

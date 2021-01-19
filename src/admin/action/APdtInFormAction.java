@@ -9,11 +9,11 @@ import vo.*;
 public class APdtInFormAction implements action.Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
-		APdtInFormSvc aPdtInFormSvc = new APdtInFormSvc();
+		APdtInFormSvc pdtInFormSvc = new APdtInFormSvc();
 		// 대분류, 소분류, 브랜드 목록을 가져오기 위한 Svc클래스
-		ArrayList<CataBigInfo> cataBigList = aPdtInFormSvc.getCataBigList();			// 대분류 목록
-		ArrayList<CataSmallInfo> cataSmallList = aPdtInFormSvc.getCataSmallList();	// 소분류 목록
-
+		ArrayList<CataBigInfo> cataBigList = pdtInFormSvc.getCataBigList();			// 대분류 목록
+		ArrayList<CataSmallInfo> cataSmallList = pdtInFormSvc.getCataSmallList();	// 소분류 목록
+		
 		if (cataBigList != null && cataSmallList != null) {
 			request.setAttribute("cataBigList", cataBigList);
 			request.setAttribute("cataSmallList", cataSmallList);
@@ -28,8 +28,7 @@ public class APdtInFormAction implements action.Action {
 			out.close();
 		}
 
-		forward.setPath("/admin/product/pdt_in_form.jsp");	// 이동할 URL 지정
+		forward.setPath("/admin/product/product_in_form.jsp");	// 이동할 URL 지정
 		return forward;
 	}
 }
-

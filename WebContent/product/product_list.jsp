@@ -14,10 +14,9 @@ String keyword, bcata, scata, sprice, eprice, ord, review;
 keyword =	pageInfo.getKeyword();	// 검색어
 bcata =		pageInfo.getBcata();	// 대분류
 scata =		pageInfo.getScata();	// 소분류
-sprice =	pageInfo.getSprice();	// 가격대 시작 가격
-eprice =	pageInfo.getEprice();	// 가격대 종료 가격
+sprice =	pageInfo.getSprice();	// 시작가격
+eprice =	pageInfo.getEprice();	// 종료가격
 ord =		pageInfo.getOrd();		// 정렬조건
-
 
 String args = "", schArgs = "";
 if (bcata != null)		schArgs += "&bcata=" + bcata;		else	bcata = "";
@@ -71,8 +70,8 @@ for (int i = 0, j = 1 ; i < cataSmallList.size() ; i++, j++) {
 	if (bc != cataSmallList.get(i).getCb_idx()) {
 		j = 1;
 %>
-var arr<%=cataSmallList.get(i).getCb_idx()%> = new Array();
-arr<%=cataSmallList.get(i).getCb_idx()%>[0] = new Option("", "소분류 선택");
+		var arr<%=cataSmallList.get(i).getCb_idx()%> = new Array();
+		arr<%=cataSmallList.get(i).getCb_idx()%>[0] = new Option("", "소분류 선택");
 <%
 	}
 	bc = cataSmallList.get(i).getCb_idx();	// 대분류 idx를 bc에 저장
@@ -86,7 +85,6 @@ arr<%=bc%>[<%=j%>] = new Option("<%=sc%>", "<%=scName%>");
 
 function setCategory(obj, target) {
 	var x = obj.value;	// 대분류에서 선택한 값을 x에 담음
-
 	for (var m = target.options.length - 1 ; m > 0 ; m--) {
 		target.options[m] = null;
 	}
@@ -139,14 +137,14 @@ if (!bcata.equals("")) {	// 대분류를 이용하여 검색한 상태이면(소
 <tr>
 <th width="15%">상품명</th>
 <td>
-	<input type="text" name="keyword" class="date" value="<%=keyword%>"/>
+	<input type="text" name="keyword" value="<%=keyword%>" />
 </td>
 </tr>
 <tr>
 <th>가격대</th>
 <td>
-	<input type="text" name="sprice" class="pr" value="<%=sprice%>"/> ~ 
-	<input type="text" name="eprice" class="pr" value="<%=eprice%>"/>
+	<input type="text" name="sprice" class="pr" value="<%=sprice%>" /> ~ 
+	<input type="text" name="eprice" class="pr" value="<%=eprice%>" />
 </td>
 </tr>
 <tr>

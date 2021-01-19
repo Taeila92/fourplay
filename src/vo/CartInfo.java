@@ -1,7 +1,7 @@
 package vo;
 
 public class CartInfo {
-	private int cl_idx, cl_cnt, ps_stock, price, wl_id;
+	private int cl_idx, cl_cnt, ps_stock, price, wl_id, pl_price, pl_discount;
 	private String cl_buyer, cl_ismember, pl_id, cl_opt, pl_name, pl_img1, pl_opt, ml_id ;
 	public int getCl_idx() {
 		return cl_idx;
@@ -32,6 +32,18 @@ public class CartInfo {
 	}
 	public void setWl_id(int wl_id) {
 		this.wl_id = wl_id;
+	}
+	public int getPl_price() {
+		return pl_price;
+	}
+	public void setPl_price(int pl_price) {
+		this.pl_price = pl_price;
+	}
+	public int getPl_discount() {
+		return pl_discount;
+	}
+	public void setPl_discount(int pl_discount) {
+		this.pl_discount = pl_discount;
 	}
 	public String getCl_buyer() {
 		return cl_buyer;
@@ -81,5 +93,5 @@ public class CartInfo {
 	public void setMl_id(String ml_id) {
 		this.ml_id = ml_id;
 	}
-
+	
 }

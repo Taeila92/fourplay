@@ -76,6 +76,8 @@ public class CartDao {
 				cart.setCl_opt(rs.getString("cl_opt"));
 				cart.setCl_cnt(rs.getInt("cl_cnt"));
 				cart.setPs_stock(rs.getInt("ps_stock"));
+				cart.setPl_price(rs.getInt("pl_price"));
+				cart.setPl_discount(rs.getInt("pl_discount"));
 				int price = rs.getInt("pl_price");	// 실 구매가
 				if (rs.getInt("pl_discount") > 0) {
 					float rate = (float)rs.getInt("pl_discount") / 100;
@@ -111,6 +113,31 @@ public class CartDao {
 
 			return result;
 		}
+	public int cartDelete(String idx, String buyer, String isMember) {
+	// 사용자가 선택한 상품(들)을 장바구니에서 삭제하는 메소드
+		int result = 0;
+		Statement stmt = null;
+
+		try {
+			String[] arrIdx = idx.split(",");
+			String where = "";
+			for (int i = 0 ; i < arrIdx.length ; i++) {
+				where += " or cl_idx = " + arrIdx[i];
+			}
+			where = " and (" + where.substring(4) + ")";
+			String sql = "delete from t_cart_list where cl_buyer = '" + buyer + 
+				"' and cl_ismember = '" + isMember + "' " + where;
+			System.out.println(sql);
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+		} catch(Exception e) {
+			System.out.println("cartDelete() 오류");		e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+
+		return result;
+	}
 
    public int wishInsert(CartInfo cart) {
 		// 사용자가 선택한 상품을 장바구니에 담는 메소드

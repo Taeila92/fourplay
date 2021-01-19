@@ -1,32 +1,29 @@
-package dao;
+package admin.dao;
 
-import static db.JdbcUtil.close;
+import static db.JdbcUtil.*;
+import javax.servlet.http.*;
+import java.sql.*;
+import javax.sql.*;
+import java.util.*;
+import vo.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import vo.CataBigInfo;
-import vo.CataSmallInfo;
-import vo.PdtInfo;
-
-public class PdtDao {
-	private static PdtDao pdtDao;
+public class APdtDao {
+	private static APdtDao aPdtDao;
 	private Connection conn;
 
-	private PdtDao() {}
+	private APdtDao() {}
 	
-	public static PdtDao getInstance() {
-		if (pdtDao == null) {
-			pdtDao = new PdtDao();
+	public static APdtDao getInstance() {
+		if (aPdtDao == null) {
+			aPdtDao = new APdtDao();
 		}
-		return pdtDao;
-	}	
+		return aPdtDao;
+	}
+	
 	public void setConnection(Connection conn) {
 		this.conn = conn;
 	}
-	
+
 	public ArrayList<CataBigInfo> getCataBigList() {
 	// DB에서 대분류 목록을 받아 리턴하는 메소드
 		ArrayList<CataBigInfo> cataBigList = new ArrayList<CataBigInfo>();
@@ -94,6 +91,108 @@ public class PdtDao {
 		return cataSmallList;
 	}
 
+	public int pdtInsert(PdtInfo pdt) {
+	// 상품 등록 처리를 위한 메소드
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null, plid = pdt.getCs_idx() + "pdt101";
+
+		try {
+			sql = "select max(right(pl_id, 3)) from t_product_list where cs_idx = " + pdt.getCs_idx();
+			// 해당 소분류에서 가장 큰 값을 가진 상품아이디 마지막 세자리를 잘라옴
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int n = 1;
+				if (rs.getString(1) != null)	n = Integer.parseInt(rs.getString(1)) + 101;
+				plid = pdt.getCs_idx() + "pdt" + n;
+			
+			}
+
+			sql = "insert into t_product_list (pl_id, cs_idx, pl_name, pl_price, " + 
+			"pl_cost, pl_discount, pl_opt, pl_img1, pl_img2, pl_img3, pl_desc, " + 
+			"pl_view, al_idx) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, plid);
+			pstmt.setInt(2, pdt.getCs_idx());
+			pstmt.setString(3, pdt.getPl_name());
+			pstmt.setInt(4, pdt.getPl_price());
+			pstmt.setInt(5, pdt.getPl_cost());
+			pstmt.setInt(6, pdt.getPl_discount());
+			pstmt.setString(7, pdt.getPl_opt());
+			pstmt.setString(8, pdt.getPl_img1());
+			pstmt.setString(9, pdt.getPl_img2());
+			pstmt.setString(10, pdt.getPl_img3());
+			pstmt.setString(11, pdt.getPl_desc());
+			pstmt.setString(12, pdt.getPl_view());
+			result = pstmt.executeUpdate();
+
+		} catch(Exception e) {
+			System.out.println("pdtInsert() 오류");
+			e.printStackTrace();
+		} finally {
+			close(rs);	close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int pdtUpdate(PdtInfo pdt) {
+	// 상품 수정 처리를 위한 메소드
+		int result = 0;
+		Statement stmt = null;
+		String sql = null;
+
+		try {
+			sql = "update t_product_list set " + 
+				"cs_idx = '"		+ pdt.getCs_idx()		+ "', " + 
+				"pl_name = '"		+ pdt.getPl_name()		+ "', " + 
+				"pl_price = '"		+ pdt.getPl_price()		+ "', " + 
+				"pl_cost = '"		+ pdt.getPl_cost()		+ "', " + 
+				"pl_discount = '"	+ pdt.getPl_discount()	+ "', " + 
+				"pl_opt = '"		+ pdt.getPl_opt()		+ "', " + 
+				"pl_img1 = '"		+ pdt.getPl_img1()		+ "', " + 
+				"pl_img2 = '"		+ pdt.getPl_img2()		+ "', " + 
+				"pl_img3 = '"		+ pdt.getPl_img3()		+ "', " + 
+				"pl_desc = '"		+ pdt.getPl_desc()		+ "', " + 
+				"pl_stock = '"		+ pdt.getPs_stock()		+ "', " + 
+				"pl_view = '"		+ pdt.getPl_view()		+ "' " + 
+				"where pl_id = '"	+ pdt.getPl_id()		+ "' ";
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+
+		} catch(Exception e) {
+			System.out.println("pdtUpdate() 오류");
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+
+		return result;
+	}
+
+	public int pdtDelete(String id) {
+	// 상품 삭제 처리를 위한 메소드
+		int result = 0;
+		Statement stmt = null;
+		String sql = null;
+
+		try {
+			sql = "delete from t_product_list where pl_id = '" + id + "' ";
+			System.out.println(sql);
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+		} catch(Exception e) {
+			System.out.println("pdtDelete() 오류");
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+
+		return result;
+	}
+
 	public int getPdtCount(String where) {
 	// 조건을 받아와 조건에 맞는 상품들의 총 개수를 리턴하는 메소드
 		int rcnt = 0;
@@ -106,7 +205,6 @@ public class PdtDao {
 				" where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx " + where;
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-
 			if (rs.next())	rcnt = rs.getInt(1);
 		} catch(Exception e) {
 			System.out.println("getPdtCount() 오류");
@@ -117,7 +215,6 @@ public class PdtDao {
 
 		return rcnt;
 	}
-
 
 	public ArrayList<PdtInfo> getPdtList(String where, String orderby, int cpage, int psize) {
 	// 검색조건과 정렬조건을 받아와 조건에 맞는 상품들을 정렬하여 그 목록을 ArrayList<PdtInfo>형으로 리턴하는 메소드
@@ -130,11 +227,9 @@ public class PdtDao {
 		int snum = (cpage - 1) * psize;		// 쿼리의 limit 명령에서 데이터를 가져올 시작 인덱스 번호
 
 		try {
-			sql = "select  a.*, b.cb_name, c.cs_name, d.ps_salecnt, d.ps_stock " + 
-					" from t_product_list a,  t_cata_big b, t_cata_small c, t_product_size d " + 
-					" where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx and d.pl_id = a.pl_id " +
-					where + " group by a.pl_id " + orderby +" limit " + snum + ", " + psize;
-
+			sql = "select a.*, b.cb_name, c.cs_name from t_product_list a, t_cata_big b, " + 
+				" t_cata_small c where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx " + 
+				where + orderby + " limit " + snum + ", " + psize;
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -150,14 +245,15 @@ public class PdtDao {
 				pdtInfo.setPl_img2(rs.getString("pl_img2"));
 				pdtInfo.setPl_img3(rs.getString("pl_img3"));
 				pdtInfo.setPl_desc(rs.getString("pl_desc"));
+				pdtInfo.setPs_salecnt(rs.getInt("ps_salecnt"));
 				pdtInfo.setPl_review(rs.getInt("pl_review"));
 				pdtInfo.setPl_view(rs.getString("pl_view"));
 				pdtInfo.setPl_date(rs.getString("pl_date"));
-				pdtInfo.setPs_stock(rs.getInt("ps_stock"));
 				pdtInfo.setAl_idx(rs.getInt("al_idx"));
+				pdtInfo.setCb_name(rs.getString("cb_name"));
+				pdtInfo.setCs_name(rs.getString("cs_name"));
 				pdtList.add(pdtInfo);
 			}
-			
 		} catch(Exception e) {
 			System.out.println("getPdtList() 오류");
 			e.printStackTrace();
@@ -167,53 +263,7 @@ public class PdtDao {
 
 		return pdtList;
 	}
-	public ArrayList<PdtInfo> getBestPdtList(String scata) {
-	// 검색조건과 정렬조건을 받아와 조건에 맞는 상품들을 정렬하여 그 목록을 ArrayList<PdtInfo>형으로 리턴하는 메소드
-		ArrayList<PdtInfo> pdtList = new ArrayList<PdtInfo>();
-		// 상품 목록을 저장할 ArrayList객체로 PdtInfo형 인스턴스만 저장함
-		Statement stmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		PdtInfo pdtInfo = null;		// 하나의 상품정보를 저장한 후 pdtList에 저장될 인스턴스
 
-		try {
-			sql = "select a.*, b.cb_name, c.cs_name , d.ps_salecnt, d.ps_stock " + 
-					" from t_product_list a, t_cata_big b, t_cata_small c, t_product_size d " + 
-					" where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx and a.pl_view = 'y' and a.cs_idx = '" +
-					scata +"' order by d.ps_salecnt desc limit 0,3";
-
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				pdtInfo = new PdtInfo();
-				pdtInfo.setPl_id(rs.getString("pl_id"));
-				pdtInfo.setCs_idx(rs.getInt("cs_idx"));
-				pdtInfo.setPl_name(rs.getString("pl_name"));
-				pdtInfo.setPl_price(rs.getInt("pl_price"));
-				pdtInfo.setPl_cost(rs.getInt("pl_cost"));
-				pdtInfo.setPl_discount(rs.getInt("pl_discount"));
-				pdtInfo.setPl_opt(rs.getString("pl_opt"));
-				pdtInfo.setPl_img1(rs.getString("pl_img1"));
-				pdtInfo.setPl_img2(rs.getString("pl_img2"));
-				pdtInfo.setPl_img3(rs.getString("pl_img3"));
-				pdtInfo.setPl_desc(rs.getString("pl_desc"));
-				pdtInfo.setPs_stock(rs.getInt("ps_stock"));
-				pdtInfo.setPs_salecnt(rs.getInt("ps_salecnt"));
-				pdtInfo.setPl_review(rs.getInt("pl_review"));
-				pdtInfo.setPl_view(rs.getString("pl_view"));
-				pdtInfo.setPl_date(rs.getString("pl_date"));
-				pdtInfo.setAl_idx(rs.getInt("al_idx"));
-				pdtList.add(pdtInfo);
-			}
-		} catch(Exception e) {
-			System.out.println("getBestPdtList() 오류");
-			e.printStackTrace();
-		} finally {
-			close(rs);	close(stmt);
-		}
-
-		return pdtList;
-	}
 	public PdtInfo getPdtInfo(String id) {
 	// 지정된 id에 해당하는 하나의 상품정보를 PdtInfo형 인스턴스로 리턴하는 메소드
 		PdtInfo pdtInfo = null;
@@ -229,10 +279,10 @@ public class PdtDao {
 			rs = stmt.executeQuery(sql);
 			if (rs.next())	saleCnt = rs.getInt(1);
 
-			sql = "select a.*, b.cb_name, c.cs_name, d.ps_stock, d.ps_salecnt" +
-					" from t_product_list a, t_cata_big b, t_cata_small c, t_product_size d " +
-					" where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx and a.pl_id = d.pl_id and a.pl_id = '" + id +
-					"' group by a.pl_id ";
+			sql = "select a.*, b.cb_name, c.cs_name, d.bl_name " + 
+				" from t_product_list a, t_cata_big b, t_cata_small c, t_brand_list d " + 
+				" where a.cs_idx = c.cs_idx and a.bl_idx = d.bl_idx and " + 
+				" b.cb_idx = c.cb_idx and a.pl_id = '" + id + "' ";
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				pdtInfo = new PdtInfo();
@@ -248,11 +298,13 @@ public class PdtDao {
 				pdtInfo.setPl_img3(rs.getString("pl_img3"));
 				pdtInfo.setPl_desc(rs.getString("pl_desc"));
 				pdtInfo.setPs_stock(rs.getInt("ps_stock"));
-				pdtInfo.setPs_salecnt(rs.getInt("ps_salecnt"));
+				pdtInfo.setPs_salecnt(saleCnt);
 				pdtInfo.setPl_review(rs.getInt("pl_review"));
 				pdtInfo.setPl_view(rs.getString("pl_view"));
 				pdtInfo.setPl_date(rs.getString("pl_date"));
 				pdtInfo.setAl_idx(rs.getInt("al_idx"));
+				pdtInfo.setCb_name(rs.getString("cb_name"));
+				pdtInfo.setCs_name(rs.getString("cs_name"));
 			}
 		} catch(Exception e) {
 			System.out.println("getPdtInfo() 오류");
@@ -264,3 +316,4 @@ public class PdtDao {
 		return pdtInfo;
 	}
 }
+

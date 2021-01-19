@@ -42,6 +42,10 @@ if (loginMember == null) {   //일반 회원 로그인이 되어있지 않으면
 <hr />
 <a href="pdt_list.pdt">상품내역- 프론트</a>
 <hr />
+<a href="pdt_list.pdta">상품내역- 어드민</a>
+<hr />
+<a href="pdt_in_form.pdta">상품등록- 어드민</a>
+<hr />
 <a href="cart_list.crt">장바구니- 프론트</a>
 <hr />
 <a href="wish_list.crt">위시리스트- 프론트</a>

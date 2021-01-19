@@ -2,7 +2,7 @@ package vo;
 
 public class PdtInfo {
 	// 하나의 상품 정보를 저장할 클래스
-	private String pl_id, pl_name, pl_opt, pl_img1, pl_img2, pl_img3, pl_desc, pl_view, pl_date, ps_size, ps_date;
+	private String pl_id, pl_name, pl_opt, pl_img1, pl_img2, pl_img3, pl_desc, pl_view, pl_date, ps_size, ps_date, cb_name, cs_name;
 	// 상품아이디, 상품명, 상품옵션, 상품이미지1, 상품이미지2, 상품이미지3, 상품설명이미지, 게시여부, 상품등록일, 사이즈, 사이즈 등록일
 	private int cs_idx, pl_price, pl_cost, pl_discount, pl_review, al_idx, ps_stock, ps_salecnt;
 	// 소분류번호, 가격, 원가, 할인율, 리뷰개수, 관리자번호, 재고량, 판매량
@@ -72,6 +72,18 @@ public class PdtInfo {
 	public void setPs_date(String ps_date) {
 		this.ps_date = ps_date;
 	}
+	public String getCb_name() {
+		return cb_name;
+	}
+	public void setCb_name(String cb_name) {
+		this.cb_name = cb_name;
+	}
+	public String getCs_name() {
+		return cs_name;
+	}
+	public void setCs_name(String cs_name) {
+		this.cs_name = cs_name;
+	}
 	public int getCs_idx() {
 		return cs_idx;
 	}
@@ -120,6 +132,5 @@ public class PdtInfo {
 	public void setPs_salecnt(int ps_salecnt) {
 		this.ps_salecnt = ps_salecnt;
 	}
-
-
+	
 }

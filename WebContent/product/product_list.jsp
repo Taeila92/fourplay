@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
 <%@ page import="java.util.*" %>
+<%@ include file="../menu.jsp" %>
 <%
 ArrayList<PdtInfo> pdtList = (ArrayList<PdtInfo>)request.getAttribute("pdtList");
 ArrayList<PdtInfo> bestPdtList = (ArrayList<PdtInfo>)request.getAttribute("bestPdtList");
@@ -173,7 +174,7 @@ if (!bcata.equals("")) {	// 대분류를 이용하여 검색한 상태이면(소
 </table>
 </form>
 <br /><br />
-<% if( scata != null && scata.equals("")) { %>
+<% if( scata != null && !scata.equals("")) { %>
 <table width="800" cellpadding="5">
 <h2>Best Item</h2>
 <%

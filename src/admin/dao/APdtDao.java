@@ -97,6 +97,7 @@ public class APdtDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null, plid = pdt.getCs_idx() + "pdt101";
+		System.out.println(pdt.getCs_idx());
 
 		try {
 			sql = "select max(right(pl_id, 3)) from t_product_list where cs_idx = " + pdt.getCs_idx();
@@ -230,6 +231,7 @@ public class APdtDao {
 			sql = "select a.*, b.cb_name, c.cs_name from t_product_list a, t_cata_big b, " + 
 				" t_cata_small c where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx " + 
 				where + orderby + " limit " + snum + ", " + psize;
+			System.out.println(sql);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {

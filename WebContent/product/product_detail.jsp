@@ -211,7 +211,7 @@ if (pdtInfo.getPl_opt() != null && !pdtInfo.getPl_opt().equals("")) {
    </td>
 </tr>
 <tr><td>
-리뷰 게시판 구역<br/>
+<%@ include file="review_list.jsp" %>
 </td></tr>
 <tr>
    <td id="qna">

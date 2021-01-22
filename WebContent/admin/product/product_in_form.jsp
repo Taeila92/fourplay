@@ -13,6 +13,7 @@ ArrayList<CataSmallInfo> cataSmallList = (ArrayList<CataSmallInfo>)request.getAt
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="jquery-3.5.1.js"></script>
 <script>
 <%
 String scName = null;
@@ -41,6 +42,22 @@ arr<%=bc%>[<%=j%>] = new Option("<%=sc%>", "<%=scName%>");
 <%
 }
 %>
+function getSelectChk() {	// 사용자가 선택한 체크박스들의 value를 추출하는 함수
+	var arrChk = document.frmPdt.opt;
+	// 문서내의 frmCart폼안에 있는컨트롤들 중 opt라는 이름을 가진 컨트롤들을 배열로 받아옴
+	var arropt = "";
+	for (var i = 0 ; i < arrChk.length ; i++) {
+		if (arrChk[i].checked) {	// i인덱스의 체크박사가 선택된 상태라면
+			arropt += "," + arrChk[i].value;	// 선택된 체크박스의 value(cl_idx값)를 idx변수에 누적
+		}
+	}
+	if (arropt != "") {
+		if(arropt.indexOf(",,") > -1)	arropt = arropt.substring(2);
+		else							arropt = arropt.substring(1);
+		arropt = "Size,"+ arropt + ":Width,regular,wide:Heel,조정없음,+1cm,+2cm";
+	}
+	return arropt;
+}
 
 function setCategory(obj, target) {
 	var x = obj.value;	// 대분류에서 선택한 값을 x에 담음
@@ -68,15 +85,24 @@ function setCategory(obj, target) {
 		// 새롭게 만들어진 콤보박스에서 첫번째 option이 선택된 상태로 있게 함
 	}
 }
+function chVal(){
+	var frm = document.frmPdt;
+	var opt = getSelectChk();
+	if (opt != "") {
+		document.frmPdt.allopt.value = opt;
+	}
+	frm.submit();
+}
 </script>
 </head>
 <body>
 <h2>상품 등록 폼</h2>
-<form name="frmPdt" action="pdt_in_proc.pdta" method="post" enctype="multipart/form-data">
+<form name="frmPdt" action="pdt_in_proc.pdta" method="post" enctype="multipart/form-data" onsubmit="getSelectChk()">
+<input type="hidden" name="opt" value="" />
+<input type="hidden" name="allopt" value="" />
 <table width="800" cellpadding="5" id="pdtInForm">
 <tr>
-<tr>
-<th width="150">상품분류</th>
+<th width="150">대분류</th>
 <td width="250">
 	<select name="bCata" onchange="setCategory(this, this.form.sCata);">
 		<option value="">대분류 선택</option>
@@ -84,36 +110,27 @@ function setCategory(obj, target) {
 		<option value="<%=cataBigList.get(i).getCb_idx()%>"><%=cataBigList.get(i).getCb_name()%></option>
 <% } %>
 	</select>
+</td>
+<th width="150">소분류</th>
+<td width="250">
 	<select name="sCata">
 		<option value="">소분류 선택</option>
 	</select>
 </td>
+</tr>
 <th>상품명</th><td><input type="text" name="name" /></td>
+<th>가격</th><td><input type="text" name="price" /></td>
 </tr>
 <tr>
 <th>원가</th><td><input type="text" name="cost" /></td>
-<th>상품가격</th><td><input type="text" name="price" /></td>
-</tr>
-<tr>
 <th>할인율</th><td><input type="text" name="discount" /></td>
 </tr>
 <tr>
 <th>옵션</th>
-<td colspan="3">
-<table>
-<% for (int i = 240 ; i <= 280 ; i += 5) { %>
-<tr>
-<td>
-	<select name="option">
-		<option value="">사이즈 선택</option>
-	<% for (int j = 240 ; j <= 280 ; j += 5) { %>
-		<option value="<%=j%>"><%=j%></option>
-	<%} %>
-	</select>
-</td>
-<th width="30%">상품 수량</th><td><input type="text" name="opt<%=i%>" /></td></tr><tr>
-<% } %>
-</table>
+<td colspan="3" >
+<%for (int i = 240 ; i <= 280; i += 5 ){ %>
+<input type="checkbox" name="opt" value="<%=i %>" /><%=i %>&nbsp;
+<%} %>
 </td>
 </tr>
 <tr>
@@ -141,7 +158,7 @@ function setCategory(obj, target) {
 </td>
 </tr>
 <tr><td colspan="4" align="center">
-	<input type="submit" value="상품 등록" />
+	<input type="button" value="상품 등록" onclick="chVal();" />
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="reset" value="다시 입력" />
 </td></tr>

@@ -31,7 +31,7 @@ public class OrdDao {
 			rs = stmt.executeQuery(sql);
 			if (rs.next())	rcnt = rs.getInt(1);
 		} catch(Exception e) {
-			System.out.println("getOrdCount() 오류");			e.printStackTrace();
+			System.out.println("getOrdCount() 오류");		e.printStackTrace();
 		} finally {
 			close(rs);	close(stmt);
 		}

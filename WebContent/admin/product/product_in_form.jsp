@@ -58,6 +58,21 @@ function getSelectChk() {	// 사용자가 선택한 체크박스들의 value를 
 	}
 	return arropt;
 }
+function sizeCheck() {	// 사용자가 선택한 체크박스들의 value를 추출하는 함수
+	var arrChk = document.frmPdt.opt;
+	// 문서내의 frmCart폼안에 있는컨트롤들 중 opt라는 이름을 가진 컨트롤들을 배열로 받아옴
+	var sizeOpt = "";
+	for (var i = 0 ; i < arrChk.length ; i++) {
+		if (arrChk[i].checked) {	// i인덱스의 체크박사가 선택된 상태라면
+			sizeOpt += "," + arrChk[i].value;	// 선택된 체크박스의 value(cl_idx값)를 idx변수에 누적
+		}
+	}
+	if (sizeOpt != "") {
+		if(sizeOpt.indexOf(",,") > -1)	sizeOpt = sizeOpt.substring(2);
+		else							sizeOpt = sizeOpt.substring(1);
+	}
+	return sizeOpt;
+}
 
 function setCategory(obj, target) {
 	var x = obj.value;	// 대분류에서 선택한 값을 x에 담음
@@ -88,8 +103,12 @@ function setCategory(obj, target) {
 function chVal(){
 	var frm = document.frmPdt;
 	var opt = getSelectChk();
+	var size = sizeCheck();
 	if (opt != "") {
 		document.frmPdt.allopt.value = opt;
+	}
+	if (size != "") {
+		document.frmPdt.sizeOpt.value = size;
 	}
 	frm.submit();
 }
@@ -100,6 +119,7 @@ function chVal(){
 <form name="frmPdt" action="pdt_in_proc.pdta" method="post" enctype="multipart/form-data" onsubmit="getSelectChk()">
 <input type="hidden" name="opt" value="" />
 <input type="hidden" name="allopt" value="" />
+<input type="hidden" name="sizeOpt" value="" />
 <table width="800" cellpadding="5" id="pdtInForm">
 <tr>
 <th width="150">대분류</th>

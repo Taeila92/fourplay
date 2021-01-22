@@ -10,7 +10,10 @@ public class WishInAction implements Action {
 		public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			request.setCharacterEncoding("utf-8");
 			String plid = request.getParameter("id");		// 상품아이디
-			String buyer = "";
+			String buyer = "", args = "";
+			if(request.getParameter("args") != null && !request.getParameter("args").equals("")) {
+				args = request.getParameter("args");
+			}
 			HttpSession session = request.getSession();
 			MemberInfo loginMember = (MemberInfo)session.getAttribute("loginMember");
 			buyer = loginMember.getMlid();
@@ -30,7 +33,7 @@ public class WishInAction implements Action {
 			}
 
 			ActionForward forward = new ActionForward();
-			forward.setPath("wish_list.crt" + request.getParameter("args"));	// 이동할 URL 지정
+			forward.setPath("wish_list.crt" + args);	// 이동할 URL 지정
 			forward.setRedirect(true);
 			return forward;
 		}

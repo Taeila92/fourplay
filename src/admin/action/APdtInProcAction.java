@@ -18,7 +18,7 @@ public class APdtInProcAction  implements action.Action {
 		String uploadPath = "D:/khs/jsp/work/fourplay/WebContent/product/pdt_img";
 		// 파일을 저장할 실제 위치를 구함
 		int maxSize = 10 * 1024 * 1024;		// 업로드 최대 용량으로 5MB로 지정
-		String sCata = "", name = "", opt = "", view = "";
+		String sCata = "", name = "", opt = "", view = "", sizeOpt = "";
 		String img1 = "", img2 = "", img3 = "", desc = "";
 		String price = "0", cost = "0", discount = "0", stock = "0";
 		MultipartRequest multi = new MultipartRequest(
@@ -30,6 +30,7 @@ public class APdtInProcAction  implements action.Action {
 		
 		sCata = multi.getParameter("sCata");
 		name = multi.getParameter("name");
+		sizeOpt = multi.getParameter("sizeOpt");
 		opt = multi.getParameter("allopt");		
 		view = multi.getParameter("view");
 		price = multi.getParameter("price");
@@ -51,7 +52,6 @@ public class APdtInProcAction  implements action.Action {
 				case "desc" : desc = multi.getFilesystemName(f);	break;
 			}
 		}
-
 		PdtInfo pdt = new PdtInfo();
 		pdt.setCs_idx(Integer.parseInt(sCata));		
 		pdt.setPl_price(Integer.parseInt(price));
@@ -67,7 +67,7 @@ public class APdtInProcAction  implements action.Action {
 		pdt.setPl_desc(desc);
 		// 등록할 상품정보를 PdtInfo형 인스턴스 pdt에 담음
 		
-		boolean isSuccess = aPdtInProcSvc.pdtInsert(pdt);
+		boolean isSuccess = aPdtInProcSvc.pdtInsert(pdt, sizeOpt);
 		if (!isSuccess) {	// 상품등록에 실패했으면
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();

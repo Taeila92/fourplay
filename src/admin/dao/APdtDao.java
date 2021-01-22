@@ -91,29 +91,33 @@ public class APdtDao {
 		return cataSmallList;
 	}
 
-	public int pdtInsert(PdtInfo pdt) {
+	public int pdtInsert(PdtInfo pdt, String sizeOpt) {
 	// 상품 등록 처리를 위한 메소드
 		int result = 0;
 		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rs = null;
 		String sql = null, plid = pdt.getCs_idx() + "pdt101";
-		System.out.println(pdt.getCs_idx());
+		String[] size = null;
+		if (sizeOpt.indexOf(",") > 0) {
+			size = sizeOpt.split(",");
+		}
 
 		try {
 			sql = "select max(right(pl_id, 3)) from t_product_list where cs_idx = " + pdt.getCs_idx();
 			// 해당 소분류에서 가장 큰 값을 가진 상품아이디 마지막 세자리를 잘라옴
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			int tmp = 0;
 			if (rs.next()) {
-				int n = 1;
-				if (rs.getString(1) != null)	n = Integer.parseInt(rs.getString(1)) + 101;
+				int n = 101;
+				if (rs.getString(1) != null)	n = Integer.parseInt(rs.getString(1)) + 1;
 				plid = pdt.getCs_idx() + "pdt" + n;
 			
 			}
 
-			sql = "insert into t_product_list (pl_id, cs_idx, pl_name, pl_price, " + 
-			"pl_cost, pl_discount, pl_opt, pl_img1, pl_img2, pl_img3, pl_desc, " + 
-			"pl_view, al_idx) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+			sql = "insert into t_product_list (pl_id, cs_idx, pl_name, pl_price, pl_cost, pl_discount, " + 
+				"pl_opt, pl_img1, pl_img2, pl_img3, pl_desc, pl_view, al_idx) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, plid);
 			pstmt.setInt(2, pdt.getCs_idx());
@@ -127,13 +131,25 @@ public class APdtDao {
 			pstmt.setString(10, pdt.getPl_img3());
 			pstmt.setString(11, pdt.getPl_desc());
 			pstmt.setString(12, pdt.getPl_view());
-			result = pstmt.executeUpdate();
-
+			result = pstmt.executeUpdate(); 
+			if (size != null) {
+			stmt = conn.createStatement();
+				do {	// 사이즈 정규화
+					for (int i = 0; i < size.length ; i++) {
+						sql = "insert into t_product_size (ps_size, ps_stock, pl_id) values ('" + size[i] + "', '"+ pdt.getPs_stock()+ "', '" + plid + "')";
+						tmp = stmt.executeUpdate(sql);
+						System.out.println(sql);
+					}
+					
+					if (tmp == 0)	return result;
+					// 주문 상세정보(상품관련) 추가 쿼리
+				}while(rs.next());
+			}
 		} catch(Exception e) {
 			System.out.println("pdtInsert() 오류");
 			e.printStackTrace();
 		} finally {
-			close(rs);	close(pstmt);
+			close(rs);	close(pstmt); close(stmt);
 		}
 
 		return result;

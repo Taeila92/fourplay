@@ -7,12 +7,12 @@ import admin.dao.*;
 import vo.*;
 
 public class APdtInProcSvc {
-	public boolean pdtInsert(PdtInfo pdt) {
+	public boolean pdtInsert(PdtInfo pdt, String sizeOpt) {
 		boolean isSuccess = false;
 		Connection conn = getConnection();
 		APdtDao aPdtDao = APdtDao.getInstance();
 		aPdtDao.setConnection(conn);
-		int result = aPdtDao.pdtInsert(pdt);
+		int result = aPdtDao.pdtInsert(pdt, sizeOpt);
 		if (result > 0) {
 			isSuccess = true;
 			commit(conn);

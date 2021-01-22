@@ -4,7 +4,7 @@ public class PdtPageInfo {
 // 상품 목록 페이지에 필요한 데이터들을 저장하는 클래스(어드민과 프론트 공용)
 	private int cpage, pcnt, spage, epage, rcnt, bsize, psize;
 	// 현재 page번호, page수, 시작page, 종료page, 게시글수, 블록크기, page크기
-	private String isview, schtype, keyword, sdate, edate, bcata, scata, brand, sprice, eprice, stock;
+	private String isview, schtype, keyword, sdate, edate, bcata, scata, sprice, eprice, stock;
 	// 검색조건 : 게시여부-admin, 키워드(상품명, 상품아이디), 등록기간-admin, 대분류, 소분류, 가격대, 재고-admin
 	private String ord;
 	// 정렬조건 : 가격price(오a내d), 상품명name(오a), 등록일date(오a내d), 인기salecnt(내d), 리뷰review(내d)
@@ -91,12 +91,6 @@ public class PdtPageInfo {
 	}
 	public void setScata(String scata) {
 		this.scata = scata;
-	}
-	public String getBrand() {
-		return brand;
-	}
-	public void setBrand(String brand) {
-		this.brand = brand;
 	}
 	public String getSprice() {
 		return sprice;

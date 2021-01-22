@@ -249,12 +249,12 @@ if (pdtList != null && rcnt > 0) {	// 검색결과가 있으면
 		int seq = rcnt - (10 * (cpage - 1));	// 현재 페이지에서의 시작번호
 		String lnk = "";
 		for (int i = 0 ; i < pdtList.size() && i < psize ; i++) {
-			lnk = "<a href='pdt_view.pdta?id=" + pdtList.get(i).getPl_id() + args + "'>";
+			lnk = "<a href='pdt_detail.pdta?id=" + pdtList.get(i).getPl_id() + args + "'>";
 %>
 <tr align="center">
 <td><%=seq-- %></td>
 <td><%=pdtList.get(i).getCb_name() + "<br />" + pdtList.get(i).getCs_name() %></td>
-<td><img src="/mvcMall/product/pdt_img/<%=pdtList.get(i).getPl_img1() %>" width="100" height="100" /></td>
+<td><img src="/fourplay/product/pdt_img/<%=pdtList.get(i).getPl_img1() %>" width="100" height="100" /></td>
 <td align="left"><%=lnk + pdtList.get(i).getPl_id() + "<br />" + lnk + pdtList.get(i).getPl_name()%></a></td>
 <td><%=pdtList.get(i).getPl_price() + "<br />" + pdtList.get(i).getPl_cost() %></td>
 <td><%=pdtList.get(i).getPl_date().substring(0, 10) %><br />

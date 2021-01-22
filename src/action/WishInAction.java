@@ -33,7 +33,7 @@ public class WishInAction implements Action {
 			}
 
 			ActionForward forward = new ActionForward();
-			forward.setPath("wish_list.crt" + args);	// 이동할 URL 지정
+			forward.setPath("wish_list.crt");	// 이동할 URL 지정
 			forward.setRedirect(true);
 			return forward;
 		}

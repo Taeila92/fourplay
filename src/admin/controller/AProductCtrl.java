@@ -39,14 +39,12 @@ public class AProductCtrl extends HttpServlet {
 				action = new APdtInProcAction();	break;
 			case "/pdt_list.pdta" :			// 상품 목록 화면
 				action = new APdtListAction();		break;
-			case "/pdt_view.pdta" :			// 상품 보기 화면
-//				action = new APdtViewAction();		break;
+			case "/pdt_detail.pdta" :			// 상품 보기 화면
+				action = new APdtDetailAction();	break;
 			case "/pdt_up_form.pdta" :		// 상품 수정 폼
-//				action = new APdtUpFormAction();	break;
+				action = new APdtUpFormAction();	break;
 			case "/pdt_up_proc.pdta" :		// 상품 수정 처리
 //				action = new APdtUpProcAction();	break;
-			case "/pdt_del_proc.pdta" :		// 상품 삭제 처리
-//				action = new APdtDelProcAction();	break;
 		}
 
 		try {

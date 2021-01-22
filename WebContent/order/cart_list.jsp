@@ -102,6 +102,14 @@ function chkAll(all) {
       arrChk[i].checked = all.checked;
    }
 }
+
+function allBuy(){
+	var all = document.frmCart.checkAll;	// 전체 선택용 체크박스
+	all.checked = true;						// 전체 선택용 체크박스를 인위적으로 체크하게 만듦
+	chkAll(all);							// 전체 선택용 체크박스를 이용하여 전체를 선택하게 만듦
+	chkBuy();								// 선택된 상품을 구매하는 함수 호출
+}
+
 function goWish() {   // 위시리스트 담기 버튼 클릭시
    var frm = document.frmCart;
 <%   if (loginMember != null){%>
@@ -195,12 +203,12 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
 <tr>
 <td width="*">
    <input type="button" value="선택한 상품 구매" onclick="chkBuy();" />
-   <input type="button" value="선택한 상품 삭제" onclick="notCool(0);" /> 
+   <input type="button" value="선택한 상품 삭제" onclick="cartDel(0);" /> 
 </td>
 <td width="250" align="right">총 구매가격 : <span id="total"><%=total %></span> 원</td>
 </tr>
 <tr><td colspan="2" align="center">
-   <input type="button" value="전체 구매" onclick="" />
+   <input type="button" value="전체 구매" onclick="allBuy();" />
    <input type="button" value="계속 쇼핑" onclick="location.href='pdt_list.pdt<%=args %>';" />
 </td></tr>
 <%

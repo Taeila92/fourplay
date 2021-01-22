@@ -125,6 +125,7 @@ public class CartDao {
 				where += " or cl_idx = " + arrIdx[i];
 			}
 			where = " and (" + where.substring(4) + ")";
+
 			String sql = "delete from t_cart_list where cl_buyer = '" + buyer + 
 				"' and cl_ismember = '" + isMember + "' " + where;
 			System.out.println(sql);

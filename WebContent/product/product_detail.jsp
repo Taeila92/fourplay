@@ -85,15 +85,16 @@ function goWish() {   // 위시리스트 담기 버튼 클릭시
 function goDirect() {   // 바로 구매하기 버튼 클릭시
    var frm = document.frmPdt;
    var kind = document.getElementById("kind");
-   kind.value = "direct";   
+   kind.value = "cart";   
 <%
 if (loginMember == null) {   // 로그인을 하지 않은 상태일 경우
    session.setAttribute("url", "ord_form.ord");
 %>
    frm.action = "login_form.jsp";
-<% } else {   // 로그인을 한 상태일 경우 %>
-   frm.action = "ord_form.ord";
-<% } %>
+<% } else {   // 로그인을 한 상태일 경우%>
+	frm.action = "cart_in.crt";
+<% session.setAttribute("url", "ord_form.ord");
+	} %>
    frm.submit();
 }
 </script>

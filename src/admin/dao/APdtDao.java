@@ -138,7 +138,6 @@ public class APdtDao {
 					for (int i = 0; i < size.length ; i++) {
 						sql = "insert into t_product_size (ps_size, ps_stock, pl_id) values ('" + size[i] + "', '"+ pdt.getPs_stock()+ "', '" + plid + "')";
 						tmp = stmt.executeUpdate(sql);
-						System.out.println(sql);
 					}
 					
 					if (tmp == 0)	return result;
@@ -197,7 +196,6 @@ public class APdtDao {
 
 		try {
 			sql = "delete from t_product_list where pl_id = '" + id + "' ";
-			System.out.println(sql);
 			stmt = conn.createStatement();
 			result = stmt.executeUpdate(sql);
 		} catch(Exception e) {
@@ -247,7 +245,6 @@ public class APdtDao {
 			sql = "select a.*, b.cb_name, c.cs_name from t_product_list a, t_cata_big b, " + 
 				" t_cata_small c where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx " + 
 				where + orderby + " limit " + snum + ", " + psize;
-			System.out.println(sql);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -263,7 +260,6 @@ public class APdtDao {
 				pdtInfo.setPl_img2(rs.getString("pl_img2"));
 				pdtInfo.setPl_img3(rs.getString("pl_img3"));
 				pdtInfo.setPl_desc(rs.getString("pl_desc"));
-				pdtInfo.setPs_salecnt(rs.getInt("ps_salecnt"));
 				pdtInfo.setPl_review(rs.getInt("pl_review"));
 				pdtInfo.setPl_view(rs.getString("pl_view"));
 				pdtInfo.setPl_date(rs.getString("pl_date"));
@@ -285,6 +281,7 @@ public class APdtDao {
 	public PdtInfo getPdtInfo(String id) {
 	// 지정된 id에 해당하는 하나의 상품정보를 PdtInfo형 인스턴스로 리턴하는 메소드
 		PdtInfo pdtInfo = null;
+		PdtSizeInfo pdtSizeInfo = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		String sql = null;
@@ -297,10 +294,10 @@ public class APdtDao {
 			rs = stmt.executeQuery(sql);
 			if (rs.next())	saleCnt = rs.getInt(1);
 
-			sql = "select a.*, b.cb_name, c.cs_name, d.bl_name " + 
-				" from t_product_list a, t_cata_big b, t_cata_small c, t_brand_list d " + 
-				" where a.cs_idx = c.cs_idx and a.bl_idx = d.bl_idx and " + 
-				" b.cb_idx = c.cb_idx and a.pl_id = '" + id + "' ";
+			sql = "select a.*, b.cb_name, c.cs_name " + 
+				" from t_product_list a, t_cata_big b, t_cata_small c " + 
+				" where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx and a.pl_id = '" + id + "' ";
+
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				pdtInfo = new PdtInfo();
@@ -315,7 +312,6 @@ public class APdtDao {
 				pdtInfo.setPl_img2(rs.getString("pl_img2"));
 				pdtInfo.setPl_img3(rs.getString("pl_img3"));
 				pdtInfo.setPl_desc(rs.getString("pl_desc"));
-				pdtInfo.setPs_stock(rs.getInt("ps_stock"));
 				pdtInfo.setPs_salecnt(saleCnt);
 				pdtInfo.setPl_review(rs.getInt("pl_review"));
 				pdtInfo.setPl_view(rs.getString("pl_view"));
@@ -323,6 +319,7 @@ public class APdtDao {
 				pdtInfo.setAl_idx(rs.getInt("al_idx"));
 				pdtInfo.setCb_name(rs.getString("cb_name"));
 				pdtInfo.setCs_name(rs.getString("cs_name"));
+				
 			}
 		} catch(Exception e) {
 			System.out.println("getPdtInfo() 오류");
@@ -332,6 +329,38 @@ public class APdtDao {
 		}
 
 		return pdtInfo;
+	}
+	public ArrayList<PdtSizeInfo> getPdtSizeList(String id) {
+	// 지정된 id에 해당하는 하나의 상품정보를 PdtInfo형 인스턴스로 리턴하는 메소드
+		ArrayList<PdtSizeInfo> pdtSizelist = new ArrayList<PdtSizeInfo>();
+		PdtSizeInfo pdtSizeInfo = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		System.out.println(id);
+		try {
+			stmt = conn.createStatement();
+			// 지정된 상품의 판매량을 구하기 위한 쿼리
+			sql = "select * from t_product_size where pl_id='" + id + "' ";
+			System.out.println(sql);
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				pdtSizeInfo = new PdtSizeInfo();
+				pdtSizeInfo.setPl_id(rs.getString("pl_id"));
+				pdtSizeInfo.setPs_size(rs.getString("ps_size"));
+				pdtSizeInfo.setPs_stock(rs.getInt("ps_stock"));
+				pdtSizeInfo.setPs_salecnt(rs.getInt("ps_salecnt"));
+				pdtSizeInfo.setPs_date(rs.getString("ps_date"));
+				pdtSizelist.add(pdtSizeInfo);
+			}
+		} catch(Exception e) {
+			System.out.println("getPdtSizeList() 오류");
+			e.printStackTrace();
+		} finally {
+			close(rs);	close(stmt);
+		}
+
+		return pdtSizelist;
 	}
 }
 

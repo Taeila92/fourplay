@@ -136,7 +136,7 @@ public class APdtDao {
 			stmt = conn.createStatement();
 				do {	// 사이즈 정규화
 					for (int i = 0; i < size.length ; i++) {
-						sql = "insert into t_product_size (ps_size, ps_stock, pl_id) values ('" + size[i] + "', '"+ pdt.getPs_stock()+ "', '" + plid + "')";
+						sql = "insert into t_product_size (ps_size, ps_stock, pl_id) values ('" + size[i] + "', '"+ pdt.getPs_stock() + "', '" + plid + "')";
 						tmp = stmt.executeUpdate(sql);
 					}
 					
@@ -154,12 +154,15 @@ public class APdtDao {
 		return result;
 	}
 
-	public int pdtUpdate(PdtInfo pdt) {
+	public int pdtUpdate(PdtInfo pdt, String sizeOpt) {
 	// 상품 수정 처리를 위한 메소드
 		int result = 0;
 		Statement stmt = null;
 		String sql = null;
-
+		String[] size = null;
+		if (sizeOpt.indexOf(",") > 0) {
+			size = sizeOpt.split(",");
+		}
 		try {
 			sql = "update t_product_list set " + 
 				"cs_idx = '"		+ pdt.getCs_idx()		+ "', " + 
@@ -167,16 +170,23 @@ public class APdtDao {
 				"pl_price = '"		+ pdt.getPl_price()		+ "', " + 
 				"pl_cost = '"		+ pdt.getPl_cost()		+ "', " + 
 				"pl_discount = '"	+ pdt.getPl_discount()	+ "', " + 
-				"pl_opt = '"		+ pdt.getPl_opt()		+ "', " + 
 				"pl_img1 = '"		+ pdt.getPl_img1()		+ "', " + 
 				"pl_img2 = '"		+ pdt.getPl_img2()		+ "', " + 
 				"pl_img3 = '"		+ pdt.getPl_img3()		+ "', " + 
 				"pl_desc = '"		+ pdt.getPl_desc()		+ "', " + 
-				"pl_stock = '"		+ pdt.getPs_stock()		+ "', " + 
 				"pl_view = '"		+ pdt.getPl_view()		+ "' " + 
 				"where pl_id = '"	+ pdt.getPl_id()		+ "' ";
 			stmt = conn.createStatement();
 			result = stmt.executeUpdate(sql);
+			if (size != null) {
+				for (int i = 0; i < size.length ; i++) {
+					sql = "update t_product_size set ps_stock = '" + pdt.getPs_stock() + 
+							"' where ps_size = '" + size[i] + "' and pl_id = '" + pdt.getPl_id() + "' ";
+
+					stmt = conn.createStatement();
+					result = stmt.executeUpdate(sql);		
+				}
+			}
 
 		} catch(Exception e) {
 			System.out.println("pdtUpdate() 오류");
@@ -337,12 +347,10 @@ public class APdtDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		System.out.println(id);
 		try {
 			stmt = conn.createStatement();
 			// 지정된 상품의 판매량을 구하기 위한 쿼리
 			sql = "select * from t_product_size where pl_id='" + id + "' ";
-			System.out.println(sql);
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				pdtSizeInfo = new PdtSizeInfo();

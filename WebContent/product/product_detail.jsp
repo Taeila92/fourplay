@@ -83,17 +83,24 @@ function goWish() {   // 위시리스트 담기 버튼 클릭시
 
 
 function goDirect() {   // 바로 구매하기 버튼 클릭시
-   var frm = document.frmPdt;
-   var kind = document.getElementById("kind");
-   kind.value = "cart";   
+	var frm = document.frmPdt;
+	var kind = document.getElementById("kind");
+	var ismember = document.getElementById("ismember");
+	var now = document.getElementById("now");
+	kind.value = "cart";   
 <%
-if (loginMember == null) {   // 로그인을 하지 않은 상태일 경우
-   session.setAttribute("url", "ord_form.ord");
+	if (loginMember == null) {   // 로그인을 하지 않은 상태일 경우
 %>
-   frm.action = "login_form.jsp";
-<% } else {   // 로그인을 한 상태일 경우%>
-	frm.action = "cart_in.crt";
-<% session.setAttribute("url", "ord_form.ord");
+		ismember.value = "n"
+		now.value = "go"
+		frm.action = "login_form.jsp";
+<% 
+	} else {   // 로그인을 한 상태일 경우
+%>
+		ismember.value = "y"
+		now.value = "go"
+		frm.action = "cart_in.crt";
+<%
 	} %>
    frm.submit();
 }
@@ -138,6 +145,8 @@ if (loginMember == null) {   // 로그인을 하지 않은 상태일 경우
    <input type="hidden" name="args" value="<%=args %>" />
    <input type="hidden" name="price" value="<%=price %>" />
    <input type="hidden" name="point" value="<%=point %>" />
+   <input type="hidden" name="ismember" id="ismember" value="" />
+   <input type="hidden" name="now" id="now" value="" />
 <%
 String dis = "";   // 재고파악
 int max = pdtInfo.getPs_stock();

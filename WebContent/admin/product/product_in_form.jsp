@@ -148,7 +148,7 @@ function chVal(){
 <tr>
 <th>옵션</th>
 <td colspan="3" >
-<%for (int i = 240 ; i <= 280; i += 5 ){ %>
+<%for (int i = 240 ; i <= 285; i += 5 ){ %>
 <input type="checkbox" name="opt" value="<%=i %>" /><%=i %>&nbsp;
 <%} %>
 </td>

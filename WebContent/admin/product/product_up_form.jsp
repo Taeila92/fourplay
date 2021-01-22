@@ -65,7 +65,37 @@ arr<%=bc%>[<%=j%>] = new Option("<%=sc%>", "<%=scName%>");
 <%
 }
 %>
-
+function getSelectChk() {	// 사용자가 선택한 체크박스들의 value를 추출하는 함수
+	var arrChk = document.frmPdt.opt;
+	// 문서내의 frmCart폼안에 있는컨트롤들 중 opt라는 이름을 가진 컨트롤들을 배열로 받아옴
+	var arropt = "";
+	for (var i = 0 ; i < arrChk.length ; i++) {
+		if (arrChk[i].checked) {	// i인덱스의 체크박사가 선택된 상태라면
+			arropt += "," + arrChk[i].value;	// 선택된 체크박스의 value(cl_idx값)를 idx변수에 누적
+		}
+	}
+	if (arropt != "") {
+		if(arropt.indexOf(",,") > -1)	arropt = arropt.substring(2);
+		else							arropt = arropt.substring(1);
+		arropt = "Size,"+ arropt + ":Width,regular,wide:Heel,조정없음,+1cm,+2cm";
+	}
+	return arropt;
+}
+function sizeCheck() {	// 사용자가 선택한 체크박스들의 value를 추출하는 함수
+	var arrChk = document.frmPdt.opt;
+	// 문서내의 frmCart폼안에 있는컨트롤들 중 opt라는 이름을 가진 컨트롤들을 배열로 받아옴
+	var sizeOpt = "";
+	for (var i = 0 ; i < arrChk.length ; i++) {
+		if (arrChk[i].checked) {	// i인덱스의 체크박사가 선택된 상태라면
+			sizeOpt += "," + arrChk[i].value;	// 선택된 체크박스의 value(cl_idx값)를 idx변수에 누적
+		}
+	}
+	if (sizeOpt != "") {
+		if(sizeOpt.indexOf(",,") > -1)	sizeOpt = sizeOpt.substring(2);
+		else							sizeOpt = sizeOpt.substring(1);
+	}
+	return sizeOpt;
+}
 function setCategory(obj, target) {
 	var x = obj.value;
 	for (var m = target.options.length - 1 ; m > 0 ; m--) {
@@ -79,11 +109,26 @@ function setCategory(obj, target) {
 		target.options[0].selected = true;
 	}
 }
+function chVal(){
+	var frm = document.frmPdt;
+	var opt = getSelectChk();
+	var size = sizeCheck();
+	if (opt != "") {
+		document.frmPdt.allopt.value = opt;
+	}
+	if (size != "") {
+		document.frmPdt.sizeOpt.value = size;
+	}
+	frm.submit();
+}
 </script>
 </head>
 <body>
 <h2>상품 수정 폼</h2>
 <form name="frmPdt" action="pdt_up_proc.pdta" method="post" enctype="multipart/form-data">
+<input type="hidden" name="opt" value="" />
+<input type="hidden" name="allopt" value="" />
+<input type="hidden" name="sizeOpt" value="" />
 <input type="hidden" name="args" value="<%=args %>" />
 <input type="hidden" name="id" value="<%=pdtInfo.getPl_id() %>" />
 <input type="hidden" name="oldImg1" value="<%=pdtInfo.getPl_img1() %>" />
@@ -134,17 +179,17 @@ for (int i = 0 ; i < cataSmallList.size() ; i++) {
 <tr>
 <th>옵션</th>
 <%
-String fullOpt = pdtInfo.getPl_opt();
+String fullOpt = pdtInfo.getPl_opt(); // 전체옵션
 String[] arrOpt = null;
 String[] sizeOpt = null;
-if(fullOpt != null && !fullOpt.equals("") && fullOpt.indexOf(":") > 0 ){
+if(fullOpt != null && !fullOpt.equals("") && fullOpt.indexOf(":") > 0 ){ // 옵션이 여러개있으면
 	arrOpt = fullOpt.split(":");
 	fullOpt = arrOpt[0].toString();
 	fullOpt = fullOpt.substring(5);
 	sizeOpt = fullOpt.split(",");
 %>
 <td colspan="3">
-<%		for (int i = 240, j = 0; i <= 280; i += 5, j++){ 
+<%		for (int i = 240, j = 0; i <= 285 ; i += 5, j++){ 
 %>
 			<input type="checkbox" name="opt"<%if(sizeOpt[j].equals(i + "")){%> checked="checked" <%}%> value="<%=i %>" /> <%=i %>
 <%
@@ -189,7 +234,7 @@ if(fullOpt != null && !fullOpt.equals("") && fullOpt.indexOf(":") > 0 ){
 <tr><td colspan="4" align="center">
 	<input type="button" value="목록으로" onclick="location.href='pdt_list.pdta<%=args %>';" />
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="submit" value="상품 수정" />
+	<input type="button" value="상품 수정" onclick="chVal();"/>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="reset" value="다시 입력" />
 </td></tr>

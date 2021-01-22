@@ -44,7 +44,7 @@ public class AProductCtrl extends HttpServlet {
 			case "/pdt_up_form.pdta" :		// 상품 수정 폼
 				action = new APdtUpFormAction();	break;
 			case "/pdt_up_proc.pdta" :		// 상품 수정 처리
-//				action = new APdtUpProcAction();	break;
+				action = new APdtUpProcAction();	break;
 		}
 
 		try {

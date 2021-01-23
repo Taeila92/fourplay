@@ -25,7 +25,6 @@ public class PdtListAction implements Action {
 		scata	= request.getParameter("scata");	// 소분류
 		sprice	= request.getParameter("sprice");	// 가격대 중 시작 가격대
 		eprice	= request.getParameter("eprice");	// 가격대 중 종료 가격대
-		
 		// 정렬조건 : 가격price(오a내d), 상품명name(오a), 등록일date(내d), 인기salecnt(내d), 리뷰review(내d)
 		String ord = request.getParameter("ord");
 		String id = request.getParameter("id");
@@ -62,9 +61,12 @@ public class PdtListAction implements Action {
 		pageInfo.setRcnt(rcnt);			// 전체 상품(레코드) 개수
 		pageInfo.setBsize(bsize);		// 블록내 페이지 개수
 		pageInfo.setPsize(psize);		// 페이지내 상품 개수
-
 		pageInfo.setKeyword(keyword);	// 검색어
 		pageInfo.setOrd(ord);			// 정렬조건
+		pageInfo.setBcata(bcata);		// 대분류
+		pageInfo.setScata(scata);		// 소분류
+		pageInfo.setSprice(sprice);		// 가격대 시작 가격
+		pageInfo.setEprice(eprice);		// 가격대 종료 가격
 		// 대분류, 소분류, 브랜드 목록을 가져오기 위한 Svc클래스
 		ArrayList<CataBigInfo> cataBigList = pdtListSvc.getCataBigList();		// 대분류 목록
 		ArrayList<CataSmallInfo> cataSmallList = pdtListSvc.getCataSmallList();	// 소분류 목록

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ page import="java.text.*" %>
 <%@ page import="vo.*" %>
-<%@ page import="java.util.*" %>
 <%@ include file="../menu.jsp" %>
 <%
 ArrayList<PdtInfo> pdtList = (ArrayList<PdtInfo>)request.getAttribute("pdtList");
@@ -10,15 +10,15 @@ ArrayList<PdtInfo> bestPdtList = (ArrayList<PdtInfo>)request.getAttribute("bestP
 ArrayList<CataBigInfo> cataBigList = (ArrayList<CataBigInfo>)request.getAttribute("cataBigList");
 ArrayList<CataSmallInfo> cataSmallList = (ArrayList<CataSmallInfo>)request.getAttribute("cataSmallList");
 PdtPageInfo pageInfo = (PdtPageInfo)request.getAttribute("pageInfo");
+DecimalFormat df = new DecimalFormat("###,###");
 
-String keyword, bcata, scata, sprice, eprice, ord, review;
+String keyword, bcata, scata, sprice, eprice, ord;
 keyword =	pageInfo.getKeyword();	// 검색어
 bcata =		pageInfo.getBcata();	// 대분류
 scata =		pageInfo.getScata();	// 소분류
 sprice =	pageInfo.getSprice();	// 시작가격
 eprice =	pageInfo.getEprice();	// 종료가격
 ord =		pageInfo.getOrd();		// 정렬조건
-
 String args = "", schArgs = "";
 if (bcata != null)		schArgs += "&bcata=" + bcata;		else	bcata = "";
 if (scata != null)		schArgs += "&scata=" + scata;		else	scata = "";
@@ -26,6 +26,7 @@ if (sprice != null)		schArgs += "&sprice=" + sprice;		else	sprice = "";
 if (eprice != null)		schArgs += "&eprice=" + eprice;		else	eprice = "";
 if (keyword != null)	schArgs += "&keyword=" + keyword;	else	keyword = "";
 if (ord != null)		schArgs += "&ord=" + ord;			else	ord = "";
+
 
 int cpage	= pageInfo.getCpage();	// 현재 페이지 번호
 int pcnt	= pageInfo.getPcnt();	// 전체 페이지 수
@@ -36,6 +37,7 @@ int epage	= pageInfo.getEpage();	// 블록 종료 페이지 번호
 int rcnt	= pageInfo.getRcnt();	// 검색된 게시물 개수
 schArgs = "&psize=" + psize + schArgs;
 args = "&cpage=" + cpage + schArgs;
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,8 +49,9 @@ a {color:black; text-decoration:none; }
 a:hover, a:focus { color:#000; }
 del{color:#a1a1a1; font-size:15px;}
 td { font-size:11; }
-.pr { width:50px; }
 .pdtBox3 { width:266px; height:280px; }
+#thImg img { margin:10px; }
+span {font-size:15px;}
 #divsort {width:830px; font-size:10px;}
 .sort {text-align:right;}
 .sort li {
@@ -60,8 +63,15 @@ td { font-size:11; }
 .sort li a { color:#676767; text-decoration:none;}
 .sort li a:hover, #infoMenu li a:focus { color:#000; }
 .sort li:first-child { background:none; }
-#thImg img { margin:10px; }
-span {font-size:15px;}
+/* 버튼 */
+.btngray {
+	border:0px; color:#fff; background-color:darkgray; margin:5px;
+	width:110px; height:25px;
+}
+.btnblue {
+	border:0px; color:#fff; background-color:#10255F; margin:5px;
+	width:110px; height:25px;
+}
 </style>
 <script>
 <%
@@ -71,8 +81,8 @@ for (int i = 0, j = 1 ; i < cataSmallList.size() ; i++, j++) {
 	if (bc != cataSmallList.get(i).getCb_idx()) {
 		j = 1;
 %>
-		var arr<%=cataSmallList.get(i).getCb_idx()%> = new Array();
-		arr<%=cataSmallList.get(i).getCb_idx()%>[0] = new Option("", "소분류 선택");
+var arr<%=cataSmallList.get(i).getCb_idx()%> = new Array();
+arr<%=cataSmallList.get(i).getCb_idx()%>[0] = new Option("", "소분류 선택");
 <%
 	}
 	bc = cataSmallList.get(i).getCb_idx();	// 대분류 idx를 bc에 저장
@@ -86,6 +96,7 @@ arr<%=bc%>[<%=j%>] = new Option("<%=sc%>", "<%=scName%>");
 
 function setCategory(obj, target) {
 	var x = obj.value;	// 대분류에서 선택한 값을 x에 담음
+
 	for (var m = target.options.length - 1 ; m > 0 ; m--) {
 		target.options[m] = null;
 	}
@@ -103,18 +114,19 @@ function setCategory(obj, target) {
 <body>
 <h2>상품 목록 화면</h2>
 <form name="frmSch" action="" method="get">
-<table width="800" cellpadding="5">
 <h2>search</h2>
-<tr width="15%">
-<th width="15%">분류선택</th>
-<td width="35%">
+<div width="100%" align="center">
+<table width="400" cellpadding="5">
+<tr>
+<th width="30%">분류선택</th>
+<td width="*">
 	<select name="bcata" onchange="setCategory(this, this.form.scata);">
 		<option value="" <% if (bcata.equals("")) { %>selected="selected"<% } %>>대분류 선택</option>
 <% for (int i = 0 ; i < cataBigList.size() ; i++) { %>
 		<option value="<%=cataBigList.get(i).getCb_idx()%>" 
 		<% if (bcata.equals(cataBigList.get(i).getCb_idx() + "")) { %>selected="selected"<% } %>>
 		<%=cataBigList.get(i).getCb_name()%></option>
-<% } %>
+<%} %>
 	</select>&nbsp;
 	<select name="scata">
 		<option value="" <% if (scata.equals("")) { %>selected="selected"<% } %>>소분류 선택</option>
@@ -136,45 +148,29 @@ if (!bcata.equals("")) {	// 대분류를 이용하여 검색한 상태이면(소
 </td>
 </tr>
 <tr>
-<th width="15%">상품명</th>
+<th>상품명</th>
 <td>
-	<input type="text" name="keyword" value="<%=keyword%>" />
+	<input type="text" name="keyword" value="<%=keyword%>" size="24" />
 </td>
 </tr>
 <tr>
 <th>가격대</th>
 <td>
-	<input type="text" name="sprice" class="pr" value="<%=sprice%>" /> ~ 
-	<input type="text" name="eprice" class="pr" value="<%=eprice%>" />
+	<input type="text" name="sprice" size="8" value="<%=sprice%>" /> ~ 
+	<input type="text" name="eprice" size="8" value="<%=eprice%>" />
 </td>
 </tr>
 <tr>
-<th>정렬방식</th>
-<td>
-	<select name="ord">
-		<option value="" <% if (ord.equals("")) { %>selected="selected"<% } %>>상품아이디(오름차순)</option>
-		<option value="namea" <% if (ord.equals("namea")) { %>selected="selected"<% } %>>상품명(오름차순)</option>
-		<option value="pricea" <% if (ord.equals("pricea")) { %>selected="selected"<% } %>>낮은 가격순(오름차순)</option>
-		<option value="priced" <% if (ord.equals("priced")) { %>selected="selected"<% } %>>높은 가격순(내림차순)</option>
-		<option value="datea" <% if (ord.equals("datea")) { %>selected="selected"<% } %>>오래된 등록일순(오름차순)</option>
-		<option value="dated" <% if (ord.equals("dated")) { %>selected="selected"<% } %>>최근 등록일순(내림차순)</option>
-		<option value="salecntd" <% if (ord.equals("salecntd")) { %>selected="selected"<% } %>>많이 팔린순(내림차순)</option>
-		<option value="reviewd" <% if (ord.equals("reviewd")) { %>selected="selected"<% } %>>리뷰 개수순(내림차순)</option>
-	</select>
+<td colspan="2" align="center">
+	<input type="submit" class="btnblue" value="상품 검색" />
+	<input type="reset" class="btngray" value="조건 초기화" />
 </td>
 </tr>
-<tr>
-<td colspan="4" align="center">
-	<input type="submit" value="상품 검색" />
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="reset" value="조건 초기화" />
-</td>
-</tr>
-
 </table>
+</div>
 </form>
 <br /><br />
-<% if( scata != null && !scata.equals("")) { %>
+<% if( scata != null) { %>
 <table width="800" cellpadding="5">
 <h2>Best Item</h2>
 <%
@@ -189,7 +185,7 @@ if (bestPdtList != null && rcnt > 0) {	// 검색결과가 있으면
 		if (bestPdtList.get(i).getPl_discount() > 0){ // 할인율이 있으면
 			float rate = (float)bestPdtList.get(i).getPl_discount() / 100;
 			int dcPrice = Math.round(bestPdtList.get(i).getPl_price() - (bestPdtList.get(i).getPl_price() * rate));
-			price = "<del>" + price + "</del><br/> " + dcPrice +" 원";
+			price = "<del>" + price + "</del><br/> " + df.format(dcPrice) +" 원";
 		}
 		soldout = "";
 		if (bestPdtList.get(i).getPs_stock() == 0){
@@ -201,30 +197,26 @@ if (bestPdtList != null && rcnt > 0) {	// 검색결과가 있으면
 		<%=lnk %><img src="/fourplay/product/pdt_img/<%=bestPdtList.get(i).getPl_img1() %>" width="<%=bestmax == 3 ? 250 : 190 %>" height="<%=bestmax == 3 ? 200 : 140 %>" /></a><br />
 		<%=lnk + bestPdtList.get(i).getPl_name() %></a><%= soldout %><br />
 		 <%= price %> <br/>
-		<span>상품리뷰 : <%= bestPdtList.get(i).getPl_review() %> 개</span>
 	</div>
 </td>
 <%
 		if (i % bestmax == bestmax - 1)	out.println("</tr>");
 	}
-} else {
-	out.println("<tr><td align='center'>검색결과가 없습니다.</td></tr>");
 }
 %>
-<hr/>
 </table>
 <%} %>
 <hr/>
 <div id="divsort">
 <ul class="sort">
-	<li><a href="#"><span>신상품순</span></a></li>
-	<li><a href="#"><span>상품명순</span></a></li>
-	<li><a href="#"><span>높은가격순</span></a></li>
-	<li><a href="#"><span>낮은가격순</span></a></li>
-	<li><a href="#"><span>인기순</span></a></li>
-	<li><a href="#"><span>사용리뷰순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=dated<%=schArgs %>"><span>신상품순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=namea<%=schArgs %>"><span>상품명순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=priced<%=schArgs %>"><span>높은가격순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=pricea<%=schArgs %>"><span>낮은가격순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=salecntd<%=schArgs %>"><span>인기순</span></a></li>
 </ul>
 </div>
+
 <table width="800" cellpadding="5">
 <%
 int max = 3;	// 한 행에서 보여줄 상품의 최대 개수
@@ -239,7 +231,7 @@ if (pdtList != null && rcnt > 0) {	// 검색결과가 있으면
 		if (pdtList.get(i).getPl_discount() > 0){ // 할인율이 있으면
 			float rate = (float)pdtList.get(i).getPl_discount() / 100;
 			int dcPrice = Math.round(pdtList.get(i).getPl_price() - (pdtList.get(i).getPl_price() * rate));
-			price = "<del>" + price + "</del><br/>" + dcPrice + " 원";
+			price = "<del>" + price + "</del><br/>" + df.format(dcPrice) + " 원";
 		}
 		soldout = "";
 		if (pdtList.get(i).getPs_stock() == 0){
@@ -251,7 +243,6 @@ if (pdtList != null && rcnt > 0) {	// 검색결과가 있으면
 		<%=lnk %><img src="/fourplay/product/pdt_img/<%=pdtList.get(i).getPl_img1() %>" width="<%=max == 3 ? 250 : 190 %>" height="<%=max == 3 ? 200 : 140 %>" /></a><br />
 		<%=lnk + pdtList.get(i).getPl_name() %></a><%= soldout %><br />
 		<%= price %><br/>
-		<span>상품리뷰 : <%= pdtList.get(i).getPl_review() %> 개</span>
 	</div>
 </td>
 <%

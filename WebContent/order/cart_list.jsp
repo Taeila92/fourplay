@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ page import="java.text.*" %>
 <%@ page import="vo.*" %>
 <%@ include file="../menu.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
+DecimalFormat df = new DecimalFormat("###,###");
 ArrayList<CartInfo> cartList = (ArrayList<CartInfo>)request.getAttribute("cartList");
 int cpage = 1, psize = 12;
 if (request.getParameter("cpage") != null)
@@ -31,6 +33,21 @@ if (ord != null && !ord.equals(""))         args += "&ord=" + ord;
 <title>Insert title here</title>
 <style>
 #wrapper {width:100%; position:absolute; top:300px;}
+#head, #ordList, #bInfo, #rInfo, #payList, #payment {
+	width:100%; border:1px solid lightgray; 
+}
+#kTitle {color:#8e8e8e; font-size:17px; }
+#head {background-color:#d1d1d1; width:100%; height:190px; line-height:170px; margin:20px auto; text-align:center;}
+#head .hImg{vertical-align:middle; margin-right:10px;}
+
+#crtList #crtTitle { background-color:#d1d1d1;}
+#crtList #table1{ border-bottom:1px solid darkgray; margin-bottom:10px;}
+#crtTitle th { border-top:2px solid darkgray;}
+.btngray {border:0px; color:#fff; background-color:darkgray; margin:5px;}
+.btnblue {border:0px; color:#fff; background-color:#10255F; margin:5px;}
+#chktd .btngray,#chktd .btnblue {width:85px; height:20px;}
+#seltd .btngray,#seltd .btnblue {width:130px; height:25px;}
+#alltd .btngray,#alltd .btnblue {width:160px; height:35px; font-size:20px;}
 </style>
 <script src="jquery-3.5.1.js"></script>
 <script>
@@ -125,14 +142,22 @@ function goWish() {   // 위시리스트 담기 버튼 클릭시
 </script>
 </head>
 <body>
-<div id="wrapper">
-<h2>MY CART</h2><div>HOME > <strong>장바구니</strong></div>
+<div id="wrapper">	
+<h2>MY CART <span id="kTitle"> 장바구니</span></h2>
+	<div id="head">
+		<img src="/fourplay/images/CARTLIST.png" name="cartImg" class="hImg" width="128" alt="장바구니"
+		style="padding:8px; border:6px solid darkgray;"/>
+		<img src="/fourplay/images/checklist.png" name="ordFormImg" class="hImg" width="128" />
+		<img src="/fourplay/images/computer_mouse.png" name="ordChkImg" class="hImg" width="128"/>
+		<img src="/fourplay/images/delivery_complete.png" name="ordDoneImg" class="hImg" width="128"/><br />
+	</div>
 <form name="frmCart" action="ord_form.ord" method="post">
 <input type="hidden" name="chk" value="" />
 <input type="hidden" name="idxs" value="" />
 <input type="hidden" name="kind" value="cart" />
-<table width="700" cellpadding="5">      
-<tr>
+<div id="crtList" width="100%" align="center">
+<table width="700"  id="table1" cellpadding="10" cellspacing="0">      
+<tr id="crtTitle">
 <th width="5%"><input type="checkbox" checked="checked" id="checkAll" onclick="chkAll(this);"/></th>
 <th width="*%">상품명 / 옵션</th><th width="10%">수량</th>
 <th width="10%">가격</th><th width="10%">적립금</th><th width="15%">배송비</th><th width="10%">선택</th>
@@ -141,10 +166,13 @@ function goWish() {   // 위시리스트 담기 버튼 클릭시
 if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가 들어 있으면
    int total = 0;   // 총 구매가격을 저장할 변수
    int pdtprice = 0;
+   int point = 0;
+   int deliPrice = 2500;
    for (int i = 0 ; i < cartList.size() ; i++) {
       String lnk = "<a href='pdt_view.pdt" + args + "&id=" + cartList.get(i).getPl_id() + "'>";
       int max = cartList.get(i).getPs_stock();
       pdtprice = cartList.get(i).getPrice() * cartList.get(i).getCl_cnt();
+      point = pdtprice / 10000 * 100;
       String msg = "";
       if (max == -1)      max = 100;   // 수량 선택 최대값으로 재고량이 무제한인 상품의 최대값
       else if (max < cartList.get(i).getCl_cnt()) {
@@ -154,7 +182,7 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
 <input type="hidden" name="id" value="<%=cartList.get(i).getPl_id() %>" />
 <tr>
 <td><input type="checkbox" name="chk" value="<%=cartList.get(i).getCl_idx() %>" checked="checked" /></td>
-<td align="left">
+<td align="left" id="pdtname">
    <%=lnk%><img src="/fourplay/product/pdt_img/<%=cartList.get(i).getPl_img1() %>" width="50" />
    <%=cartList.get(i).getPl_name() %></a> <br/>
    <%
@@ -171,7 +199,7 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
          option = option.substring(3);
       }
    %>
-   옵션 / <%= option %>
+  <span style="font-size:10px;"> 옵션 / <%= option %></span>
 </td>
 <td>
    <select name="cnt<%=i%>" onchange="chCnt(<%=cartList.get(i).getCl_idx()%>, this.value);">
@@ -180,18 +208,18 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
 <%      } %>
    </select>
 </td>
-<td style="color:red; font-weight:bold;"><%=pdtprice %></td>
-<td><%=pdtprice /100 %></td>
+<td style="color:red; font-weight:bold;" align="center"><%=df.format(pdtprice) %></td>
+<td align="center"><%=df.format(point) %></td>
 <td align="center">
-<%      if (pdtprice > 50000){%>
-[기본배송]<br/>무료
+<%      if (total > 50000){%>
+<span style="font-size:12px;">[기본배송]<br/>무료</span>
 <%      } else { %>
 2500
 <%      } %>
 </td>
-<td>
-   <input type="button" value="관심상품" onclick="goWish();" />
-   <input type="button" value="삭제하기" onclick="cartDel(<%=cartList.get(i).getCl_idx()%>);" />
+<td id="chktd">
+   <input type="button" value="관심상품" onclick="goWish();" class="btnblue"/>
+   <input type="button" value="삭제하기" onclick="cartDel(<%=cartList.get(i).getCl_idx()%>);" class="btngray"/>
 </td>
 </tr>
 <%
@@ -201,15 +229,15 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
 </table>
 <table width="700" cellpadding="15" cellspacing="0">
 <tr>
-<td width="*">
-   <input type="button" value="선택한 상품 구매" onclick="chkBuy();" />
-   <input type="button" value="선택한 상품 삭제" onclick="cartDel(0);" /> 
+<td width="*" id="seltd">
+   <input type="button" value="선택한 상품 구매" onclick="chkBuy();" class="btnblue"/>
+   <input type="button" value="선택한 상품 삭제" onclick="cartDel(0);"class="btngray" /> 
 </td>
-<td width="250" align="right">총 구매가격 : <span id="total"><%=total %></span> 원</td>
+<td width="250" align="right">총 구매가격 : <span id="total"><%=df.format(total) %></span> 원</td>
 </tr>
-<tr><td colspan="2" align="center">
-   <input type="button" value="전체 구매" onclick="allBuy();" />
-   <input type="button" value="계속 쇼핑" onclick="location.href='pdt_list.pdt<%=args %>';" />
+<tr><td colspan="2" align="center" id="alltd">
+   <input type="button" value="전체 구매" onclick="allBuy();" class="btnblue" />
+   <input type="button" value="계속 쇼핑" onclick="location.href='pdt_list.pdt<%=args %>';" class="btngray" />
 </td></tr>
 <%
 } else {   // 장바구니에 데이터가 없으면
@@ -222,6 +250,7 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
 }
 %>
 </table>
+</div>
 </form>
 </div>
 </body>

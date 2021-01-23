@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
+<%@ page import="java.text.*" %>
 <%@ include file="../menu.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
+DecimalFormat df = new DecimalFormat("###,###");
 int cpage = 1, psize = 12;
 if(request.getParameter("cpage") != null)  cpage = Integer.parseInt(request.getParameter("cpage"));
 if(request.getParameter("psize") != null)  psize = Integer.parseInt(request.getParameter("psize"));
@@ -133,12 +135,12 @@ function goDirect() {   // 바로 구매하기 버튼 클릭시
    int point = pdtInfo.getPl_price() / 100;
    if (pdtInfo.getPl_discount() > 0){ // 할인율이 있으면
       int dcprice = pdtInfo.getPl_price() * (100 - pdtInfo.getPl_discount()) / 100;
-      price = "<s>" + price + "</s><tr><td>옵션적용</td><td>" + dcprice + "</td></tr>";
-      point = dcprice / 100;
+      price = "<s>" + price + "</s><tr><td>옵션적용</td><td>" + df.format(dcprice) + "</td></tr>";
+      point = dcprice / 10000 * 100;
    }
 %>
    <tr><td>소비자가</td><td><%=price %></td></tr>
-   <tr><td>적립금</td><td><%=point %> (1%)</td></tr>
+   <tr><td>적립금</td><td><%=df.format(point) %> (1%)</td></tr>
    <form name="frmPdt" action="" method="post">
    <input type="hidden" name="kind" id="kind" value="" />
    <input type="hidden" name="id" value="<%=id %>" />

@@ -105,7 +105,6 @@ public class PdtDao {
       try {
          sql = "select count(*) from t_product_list a, t_cata_big b, t_cata_small c " + 
             " where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx " + where;
-         System.out.println(sql);
          stmt = conn.createStatement();
          rs = stmt.executeQuery(sql);
          if (rs.next())   rcnt = rs.getInt(1);
@@ -134,8 +133,8 @@ public class PdtDao {
          sql = "select  a.*, b.cb_name, c.cs_name, d.ps_salecnt, d.ps_stock " + 
                " from t_product_list a,  t_cata_big b, t_cata_small c, t_product_size d " + 
                " where a.cs_idx = c.cs_idx and b.cb_idx = c.cb_idx and d.pl_id = a.pl_id " +
-               where + orderby +" group by a.pl_id limit " + snum + ", " + psize;
-         System.out.println(sql);
+               where + " group by a.pl_id " + orderby +" limit " + snum + ", " + psize;
+
          stmt = conn.createStatement();
          rs = stmt.executeQuery(sql);
          while (rs.next()) {

@@ -34,6 +34,7 @@ public class OrdDao {
 				" c.cl_cnt, p.pl_price, p.pl_discount from t_cart_list c, t_product_list p " + 
 				" where c.pl_id = p.pl_id and p.pl_view = 'y' " + where + 
 				" order by p.pl_id, c.cl_opt ";
+				System.out.println(sql);
 			} else {	// 바로 구매를 통한 구매일 경우
 				
 			}
@@ -120,7 +121,7 @@ public class OrdDao {
 		
 		try {
 			String sql = "select * from t_order_list where ol_ismember = 'y' and ol_buyer = '" + buyer 
-					+ "' group by ol_id order by ol_date limit "+ snum + ", " + psize;
+					+ "' group by ol_id order by ol_date desc limit "+ snum + ", " + psize;
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -379,4 +380,27 @@ public class OrdDao {
 
 		return result;
 	}	
+	 public int ordCancel(String olid) {
+	// 사용자가 선택한 상품(들)을 장바구니에서 삭제하는 메소드
+		int result = 0, finalResult = 0;;
+		Statement stmt = null;
+
+		try {
+			String sql = "update t_order_list set ol_status = 'j' where ol_id = '" + olid + "' ";
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+			
+			if(result > 0) {
+				sql = "update t_order_detail set od_status = 'j' where ol_id = '" + olid + "' ";
+				finalResult = stmt.executeUpdate(sql);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("ordCancel() 오류");		e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+
+		return finalResult;
+	}
 }

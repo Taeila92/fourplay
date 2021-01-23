@@ -14,7 +14,6 @@ public class APdtUpProcAction implements action.Action {
 		ActionForward forward = new ActionForward();
 		APdtUpProcSvc aPdtUpProcSvc = new APdtUpProcSvc();
 		request.setCharacterEncoding("utf-8");
-
 		String uploadPath = "D:/khs/jsp/work/fourplay/WebContent/product/pdt_img";
 		// 파일을 저장할 실제 위치를 구함
 		int maxSize = 5 * 1024 * 1024;		// 업로드 최대 용량으로 5MB로 지정

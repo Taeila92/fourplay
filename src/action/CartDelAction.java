@@ -19,7 +19,6 @@ public class CartDelAction implements Action {
 				buyer = loginMember.getMlid();
 				isMember = "y";
 			}
-
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 

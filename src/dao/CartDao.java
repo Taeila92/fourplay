@@ -63,7 +63,7 @@ public class CartDao {
 					" p.pl_opt, c.cl_opt, c.cl_cnt, p.pl_price,p.pl_discount, s.ps_stock " + 
 					" from t_cart_list c , t_product_list p, t_product_size s" + 
 					" where c.pl_id = p.pl_id and p.pl_view = 'y' and s.ps_stock != 0 " + where + 
-					" group by p.pl_id order by p.pl_id, c.cl_opt";
+					" group by c.cl_idx order by p.pl_id, c.cl_opt";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
@@ -128,7 +128,7 @@ public class CartDao {
 
 			String sql = "delete from t_cart_list where cl_buyer = '" + buyer + 
 				"' and cl_ismember = '" + isMember + "' " + where;
-			System.out.println(sql);
+
 			stmt = conn.createStatement();
 			result = stmt.executeUpdate(sql);
 		} catch(Exception e) {

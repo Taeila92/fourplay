@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
+<%@ include file="../a_menu.jsp" %>
+<%@ include file="../pdt_menu.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
 int cpage = Integer.parseInt(request.getParameter("cpage"));
@@ -66,6 +68,7 @@ function showImg(imgName) {
 </script>
 </head>
 <body>
+<div id="wrapper">
 <h2>상품 상세보기 화면</h2>
 <table width="800" cellpadding="5">
 <tr>
@@ -125,6 +128,6 @@ function showImg(imgName) {
 <tr><td colspan="2" align="center"><hr width="100%" /></td></tr>
 
 </table>
-<br /><br />
+</div>
 </body>
 </html>

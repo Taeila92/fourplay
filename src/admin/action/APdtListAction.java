@@ -11,13 +11,15 @@ public class APdtListAction implements action.Action {
 		// 상품 목록을 저장할 ArrayList객체로 PdtInfo형 인스턴스만 저장함
 
 		request.setCharacterEncoding("utf-8");
+
+		HttpSession session = request.getSession();
+		AdminInfo adminMember = (AdminInfo)session.getAttribute("adminMember");
 		int cpage = 1, pcnt, spage, epage, rcnt, bsize = 10, psize = 10;
 		// 페이징에 필요한 값들을 저장할 변수 선언 및 초기화
 		if (request.getParameter("cpage") != null)
 			cpage = Integer.parseInt(request.getParameter("cpage"));
 		if (request.getParameter("psize") != null)
 			psize = Integer.parseInt(request.getParameter("psize"));
-
 		// 검색조건 쿼리스트링을 받음
 		String isview, schtype, keyword, sdate, edate, bcata, scata, sprice, eprice, stock;
 		isview	= request.getParameter("isview");	// 게시여부(y, n)

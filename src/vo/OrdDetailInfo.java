@@ -1,7 +1,7 @@
 package vo;
 
 public class OrdDetailInfo {
-	private String ol_id, pl_id, pl_name, pl_img1, od_opt;
+	private String ol_id, pl_id, pl_name, pl_img1, od_opt, od_status;
 	private int od_idx, od_cnt, od_price;
 	
 	public String getOl_id() {
@@ -33,6 +33,12 @@ public class OrdDetailInfo {
 	}
 	public void setOd_opt(String od_opt) {
 		this.od_opt = od_opt;
+	}
+	public String getOd_status() {
+		return od_status;
+	}
+	public void setOd_status(String od_status) {
+		this.od_status = od_status;
 	}
 	public int getOd_idx() {
 		return od_idx;

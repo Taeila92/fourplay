@@ -4,10 +4,10 @@
 <%
 request.setCharacterEncoding("utf-8");
 MemberInfo loginMember = (MemberInfo)session.getAttribute("loginMember");
-
+String now = request.getParameter("now");
 String ismember = request.getParameter("ismember");
 if(ismember == null)   ismember = "";
-
+System.out.println(now);
 
 String id = request.getParameter("id");
 String cnt = request.getParameter("cnt");
@@ -29,6 +29,7 @@ if (request.getParameter("optCnt") != null) {   // 옵션이 있으면
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+
 .btn { 
    width:100px; height:80px; background-color:black;  
    border:solid 1px black; color:white; font-size:20px; 
@@ -55,11 +56,20 @@ function goJoin() {
    frm.submit();
 }
 
+function goChk() {
+// 아이디/비밀번호 찾는 폼으로 이동시키는 함수
+	var frm = document.frmLogin;
+	frm.action = "find_id.find";
+	frm.submit();
+}
+
 <% if (loginMember== null && id != null && cnt != null) { %>
 function goDirect() {
 // 로그인 없이 비회원인 상태로 구매할 때 구매폼으로 이동시키는 함수
    var frm = document.frmLogin;
-   frm.action = "ord_form.ord";
+   var now = document.getElementById("now");
+   now.value = "go";
+   frm.action = "cart_in.crt";
    frm.submit();
 }
 <% } %>
@@ -69,6 +79,7 @@ function goDirect() {
 <h2 align="center">LOGIN</h2>
 <form name="frmLogin" action="login" method="post">
 <table cellpadding="3" align="center"> 
+<input type="hidden" name="now" id="now" value=""/>
 <tr>
    <td>아이디&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="uid"  class="text" /></td>
    <td rowspan="2" align="right"><input type="submit" value="LOGIN" class="btn"  /></td>

@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
+<%@ include file="../a_menu.jsp" %>
+<%@ include file="../pdt_menu.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
 
@@ -124,6 +126,7 @@ function chVal(){
 </script>
 </head>
 <body>
+<div id="wrapper">
 <h2>상품 수정 폼</h2>
 <form name="frmPdt" action="pdt_up_proc.pdta" method="post" enctype="multipart/form-data">
 <input type="hidden" name="opt" value="" />
@@ -240,5 +243,6 @@ if(fullOpt != null && !fullOpt.equals("") && fullOpt.indexOf(":") > 0 ){ // 옵�
 </td></tr>
 </table>
 </form>
+</div>
 </body>
 </html>

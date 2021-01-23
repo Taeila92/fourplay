@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
+<%@ include file="../a_menu.jsp" %>
+<%@ include file="../pdt_menu.jsp" %>
 <%
 ArrayList<PdtInfo> pdtList = (ArrayList<PdtInfo>)request.getAttribute("pdtList");
 ArrayList<CataBigInfo> cataBigList = (ArrayList<CataBigInfo>)request.getAttribute("cataBigList");
@@ -57,8 +59,8 @@ args = "&cpage=" + cpage + schArgs;
 td { font-size:11; }
 .date { width:80px; }
 .pr { width:50px; }
-.pdtBox3 { width:266px; height:250px; border:1px solid black; }
-.pdtBox4 { width:195px; height:200px; border:1px solid black; }
+.pdtBox3 { width:290px; height:270px; }
+.pdtBox4 { width:195px; height:200px; }
 </style>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -124,6 +126,7 @@ function setCategory(obj, target) {
 </script>
 </head>
 <body>
+<div id="wrapper">
 <h2>상품 목록 화면</h2>
 <form name="frmSch" action="" method="get">
 <table width="800" cellpadding="5">
@@ -270,10 +273,10 @@ if (pdtList != null && rcnt > 0) {	// 검색결과가 있으면
 %>
 <td>
 	<div class="pdtBox<%=max%>">
-		<%=lnk %><img src="/mvcMall/product/pdt_img/<%=pdtList.get(i).getPl_img1() %>" width="<%=max == 3 ? 250 : 190 %>" height="<%=max == 3 ? 200 : 140 %>" /></a><br />
+		<%=lnk %><img src="/fourplay/product/pdt_img/<%=pdtList.get(i).getPl_img1() %>" width="<%=max == 3 ? 250 : 190 %>" height="<%=max == 3 ? 200 : 140 %>" /></a><br />
 		<%=lnk + pdtList.get(i).getPl_name() %></a><br />
 		판매가 : <%=pdtList.get(i).getPl_price() %><br />
-		할인가 : 
+		할인가 : <%=pdtList.get(i).getPl_price() * (100 - pdtList.get(i).getPl_discount()) / 100 %>
 	</div>
 </td>
 <%
@@ -325,5 +328,6 @@ if (rcnt > 0) {	// 검색결과 상품들이 있을 경우에만 페이징을 �
 </td>
 </tr>
 </table>
+</div>
 </body>
 </html>

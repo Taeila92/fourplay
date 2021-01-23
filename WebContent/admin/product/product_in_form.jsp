@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
+<%@ include file="../a_menu.jsp" %>
+<%@ include file="../pdt_menu.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
 
@@ -115,6 +117,7 @@ function chVal(){
 </script>
 </head>
 <body>
+<div id="wrapper">
 <h2>상품 등록 폼</h2>
 <form name="frmPdt" action="pdt_in_proc.pdta" method="post" enctype="multipart/form-data" onsubmit="getSelectChk()">
 <input type="hidden" name="opt" value="" />
@@ -184,5 +187,6 @@ function chVal(){
 </td></tr>
 </table>
 </form>
+</div>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.*" %>
 <%@ page import="vo.*" %>
+<%@ include file="../menu.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
 ArrayList<CartInfo> wishList = (ArrayList<CartInfo>)request.getAttribute("wishList");
@@ -15,15 +16,13 @@ if(request.getParameter("psize") != null)
 
 String args = "";
 if (cpage > 0 && psize > 0)		args = "?cpage=" + cpage + "&psize=" + psize;
-String id, keyword, bcata, scata, brand, sprice, eprice, ord;
+String id, keyword, bcata, cata, scata, sprice, eprice, ord;
 keyword = request.getParameter("keyword");	bcata	= request.getParameter("bcata");	
-scata	= request.getParameter("scata");	brand	= request.getParameter("brand");	
-sprice	= request.getParameter("sprice");	eprice	= request.getParameter("eprice");	
-ord 	= request.getParameter("ord");
+scata	= request.getParameter("scata");	sprice	= request.getParameter("sprice");
+eprice	= request.getParameter("eprice");	ord 	= request.getParameter("ord");
 
 if (bcata != null && !bcata.equals(""))		args += "&bcata=" + bcata;
 if (scata != null && !scata.equals(""))		args += "&scata=" + scata;
-if (brand != null && !brand.equals(""))		args += "&brand=" + brand;
 if (sprice != null && !sprice.equals(""))	args += "&sprice=" + sprice;
 if (eprice != null && !eprice.equals(""))	args += "&eprice=" + eprice;
 if (keyword != null && !keyword.equals(""))	args += "&keyword=" + keyword;

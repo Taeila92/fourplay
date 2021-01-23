@@ -13,7 +13,6 @@ public class APdtUpFormAction implements action.Action {
 		ArrayList<CataBigInfo> cataBigList = aPdtInFormSvc.getCataBigList();			// 대분류 목록
 		ArrayList<CataSmallInfo> cataSmallList = aPdtInFormSvc.getCataSmallList();	// 소분류 목록
 		// 분류와 브랜드 목록들은 상품등록의 PdtInFormSvc를 이용하여 가져옴
-
 		APdtDetailSvc aPdtDetailSvc = new APdtDetailSvc();
 		String id = request.getParameter("id");
 		PdtInfo pdtInfo = aPdtDetailSvc.getPdtInfo(id);

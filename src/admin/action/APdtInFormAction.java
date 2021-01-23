@@ -13,7 +13,7 @@ public class APdtInFormAction implements action.Action {
 		// 대분류, 소분류, 브랜드 목록을 가져오기 위한 Svc클래스
 		ArrayList<CataBigInfo> cataBigList = pdtInFormSvc.getCataBigList();			// 대분류 목록
 		ArrayList<CataSmallInfo> cataSmallList = pdtInFormSvc.getCataSmallList();	// 소분류 목록
-		
+
 		if (cataBigList != null && cataSmallList != null) {
 			request.setAttribute("cataBigList", cataBigList);
 			request.setAttribute("cataSmallList", cataSmallList);

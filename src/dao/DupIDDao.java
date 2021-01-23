@@ -4,7 +4,7 @@ import static db.JdbcUtil.*;
 import java.sql.*;
 
 public class DupIDDao {
-// ë¡œê·¸ì¸ ê´€ë ¨ ì¿¼ë¦¬ë¥¼ ë§Œë“¤ì–´ ì‹¤í–‰ì‹œí‚¤ëŠ” í´ë˜ìŠ¤
+// ·Î±×ÀÎ °ü·Ã Äõ¸®¸¦ ¸¸µé¾î ½ÇÇà½ÃÅ°´Â Å¬·¡½º
 	private static DupIDDao dupIDDao;
 	private Connection conn;
 

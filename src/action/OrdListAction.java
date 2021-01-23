@@ -12,8 +12,6 @@ public class OrdListAction implements Action {
 		ActionForward forward = new ActionForward();
 		ArrayList<OrdListInfo> ordList = new ArrayList<OrdListInfo>();
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
 		
 		int cpage = 1, pcnt, spage, epage, rcnt, bsize = 10, psize = 12;		// 페이징에 필요한 값들을 저장할 변수 선언 및 초기화
 		if (request.getParameter("cpage") != null)			cpage = Integer.parseInt(request.getParameter("cpage"));
@@ -49,6 +47,8 @@ public class OrdListAction implements Action {
 			request.setAttribute("pageInfo", pageInfo);
 			forward.setPath("/member/order_list.jsp");
 		} else {	// 로그인해야만 들어올 수 있으므로
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('잘못된 경로로 들어오셨습니다.');");
 			out.println("history.back();");

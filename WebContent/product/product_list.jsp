@@ -45,6 +45,7 @@ args = "&cpage=" + cpage + schArgs;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+#none {display:none;}
 a {color:black; text-decoration:none; }
 a:hover, a:focus { color:#000; }
 del{color:#a1a1a1; font-size:15px;}
@@ -53,7 +54,6 @@ td { font-size:11; }
 #thImg img { margin:10px; }
 span {font-size:15px;}
 #divsort {width:830px; font-size:10px;}
-/* #search{ display:none; } */
 .sort {text-align:right;}
 .sort li {
 	display:inline; padding:0 3px 0 8px; no-repeat 0 3px; text-align:"center"
@@ -74,11 +74,11 @@ span {font-size:15px;}
 	width:110px; height:25px;
 }
 </style>
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="jquery-3.5.1.js"></script>
 <script>
 $(document).ready(function(){
 	$("#schchk").click(function(){
-		$("#search").slideToggle('fast');
+		$("#pdtsearch").slideToggle('fast');
 	});
 });
 </script>
@@ -122,11 +122,13 @@ function setCategory(obj, target) {
 </script>
 </head>
 <body>
-<h2>상품 목록 화면</h2>
-<br /><br />
+<div id="wrapper" width="100%" align="center">	
+<h2 id="none">상품 목록 화면</h2>
+<br />
+<!-- --------------------베스트상품 시작------------------------ -->
 <% if( scata != null && !scata.equals("")) { %>
 <table width="800" cellpadding="5">
-<h2>Best Item</h2>
+<h2 align="center">Best Item</h2>
 <%
 int bestmax = 3;	// 한 행에서 보여줄 상품의 최대 개수
 if (bestPdtList != null && rcnt > 0) {	// 검색결과가 있으면
@@ -159,20 +161,26 @@ if (bestPdtList != null && rcnt > 0) {	// 검색결과가 있으면
 }
 %>
 </table>
-<%} %>
 <hr/>
+<%} %>
+<!-- --------------------베스트상품 끝------------------------ -->
+
+<!-- --------------------정렬시작------------------------ -->
 <div id="divsort">
 <ul class="sort">
-	<li><img src="/fourplay/images/search.png" width="18" height="18" id="schchk" /></li>
 	<li><a href="pdt_list.pdt?ord=dated<%=schArgs %>"><span>신상품순</span></a></li>
 	<li><a href="pdt_list.pdt?ord=namea<%=schArgs %>"><span>상품명순</span></a></li>
 	<li><a href="pdt_list.pdt?ord=priced<%=schArgs %>"><span>높은가격순</span></a></li>
 	<li><a href="pdt_list.pdt?ord=pricea<%=schArgs %>"><span>낮은가격순</span></a></li>
 	<li><a href="pdt_list.pdt?ord=salecntd<%=schArgs %>"><span>인기순</span></a></li>
+	<li><img src="/fourplay/images/search.png" width="18" height="18" id="schchk" /></li>
 </ul>
 </div>
 
-<div width="100%" align="center" id="search">
+<!-- --------------------정렬 끝------------------------ -->
+
+<!-- ------------검색시작------------ -->
+<div align="center" id="pdtsearch">
 <form name="frmSch" action="" method="get">
 <h2>search</h2>
 <table width="400" cellpadding="5">
@@ -228,6 +236,10 @@ if (!bcata.equals("")) {	// 대분류를 이용하여 검색한 상태이면(소
 </table>
 </form>
 </div>
+<!-- ------------검색끝------------ -->
+
+
+<!-- ------------상품목록 시작------------ -->
 <table width="800" cellpadding="5">
 <%
 int max = 3;	// 한 행에서 보여줄 상품의 최대 개수
@@ -264,8 +276,10 @@ if (pdtList != null && rcnt > 0) {	// 검색결과가 있으면
 }
 %>
 </table>
-<br />
 
+<!-- ------------상품목록 끝------------ -->
+
+<!-- ------------페이징 시작------------ -->
 <table width="800" cellpadding="5">
 <tr>
 <td align="center">
@@ -302,5 +316,7 @@ if (rcnt > 0) {	// 검색결과 상품들이 있을 경우에만 페이징을 �
 </td>
 </tr>
 </table>
+<!-- ------------페이징 끝------------ -->
+</div>
 </body>
 </html>

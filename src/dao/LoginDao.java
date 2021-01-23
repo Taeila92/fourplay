@@ -26,7 +26,8 @@ public class LoginDao {
 
 		try {
 			stmt = conn.createStatement();
-			String sql = "select * from t_member_list " + " where ml_status = 'a' and ml_id = '" + uid + "' and ml_pwd = '" + pwd + "'";
+			String sql = "select * from t_member_list where ml_status = 'a' and ml_id = '" + uid 
+					+ "' and ml_pwd = '" + pwd + "'";
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {	
 				loginMember = new MemberInfo();

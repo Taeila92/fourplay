@@ -12,7 +12,8 @@ public class CartInAction implements Action {
 		String plid = request.getParameter("id");		// 상품아이디
 		String cnt = request.getParameter("cnt");		// 구매 수량
 		String price = request.getParameter("price");	// 실구매가
-		String now = request.getParameter("now");
+		String now = "&now=" + request.getParameter("now");
+		String idxs = request.getParameter("idxs");	
 		int optCnt = 0;
 		String optValue = "";
 		if (request.getParameter("optCnt") != null) {
@@ -53,11 +54,7 @@ public class CartInAction implements Action {
 		}
 
 		ActionForward forward = new ActionForward();
-		if(now.equals("go")) {
-			forward.setPath("ord_form.ord");	// 이동할 URL 지정
-		}else {
-			forward.setPath("cart_list.crt" + request.getParameter("args"));	// 이동할 URL 지정			
-		}
+		forward.setPath("cart_list.crt" + request.getParameter("args") + now);	// 이동할 URL 지정			
 		forward.setRedirect(true);
 		return forward;
 	}

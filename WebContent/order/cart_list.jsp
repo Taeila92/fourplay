@@ -8,6 +8,7 @@
 request.setCharacterEncoding("utf-8");
 DecimalFormat df = new DecimalFormat("###,###");
 ArrayList<CartInfo> cartList = (ArrayList<CartInfo>)request.getAttribute("cartList");
+String now = request.getParameter("now");
 int cpage = 1, psize = 12;
 if (request.getParameter("cpage") != null)
    cpage = Integer.parseInt(request.getParameter("cpage"));
@@ -32,7 +33,6 @@ if (ord != null && !ord.equals(""))         args += "&ord=" + ord;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-#wrapper {width:100%; position:absolute; top:300px;}
 #head, #ordList, #bInfo, #rInfo, #payList, #payment {
 	width:100%; border:1px solid lightgray; 
 }
@@ -63,19 +63,22 @@ function chCnt(idx, cnt) {   // 상품의 수량을 변경시키는 함수
          }
       });
    }
-function getSelectChk() {   // 사용자가 선택한 체크박스들의 value를 추출하는 함수
-   var arrChk = document.frmCart.chk;
-   // 문서내의 frmCart폼안에 있는컨트롤들 중 chk라는 이름을 가진 컨트롤들을 배열로 받아옴
-   // 단 chk라는 이름을 가진 컨트롤이 하나일 경우에는 배열이 만들어 지지 않음
-   var idx = "";
-   for (var i = 0 ; i < arrChk.length ; i++) {
-      if (arrChk[i].checked) {   // i인덱스의 체크박사가 선택된 상태라면
-         idx += "," + arrChk[i].value;   // 선택된 체크박스의 value(cl_idx값)를 idx변수에 누적
-      }
-   }
-   if (idx != "")   idx = idx.substring(1);
-   
-   return idx;
+function getSelectChk() {	// 사용자가 선택한 체크박스들의 value를 추출하는 함수
+	var arrChk = document.frmCart.chk;
+	// 문서내의 frmCart폼안에 있는컨트롤들 중 chk라는 이름을 가진 컨트롤들을 배열로 받아옴
+	// 단 chk라는 이름을 가진 컨트롤이 하나일 경우에는 배열이 만들어 지지 않음
+	var idx = "";
+	for (var i = 0 ; i < arrChk.length ; i++) {
+		if (arrChk[i].checked) {	// i인덱스의 체크박사가 선택된 상태라면
+			idx += "," + arrChk[i].value;	// 선택된 체크박스의 value(cl_idx값)를 idx변수에 누적
+		}
+	}
+	if (idx != "") {
+		if(idx.indexOf(",,") > -1)	idx = idx.substring(2);	// 전체 구매시
+		else						idx = idx.substring(1);	// 선택한 상품 구매시
+	}
+	
+	return idx;
 }
 function cartDel(idx) {
    var isConfirm = false;
@@ -140,9 +143,12 @@ function goWish() {   // 위시리스트 담기 버튼 클릭시
       }
 <%   }%>
 }
+function buyNow(){
+	allBuy();
+}
 </script>
 </head>
-<body>
+<body<% if ( now !=null && now.equals("go") ){ %> onload="buyNow();" <%} %>>
 <div id="wrapper">	
 <h2>MY CART <span id="kTitle"> 장바구니</span></h2>
 	<div id="head">
@@ -199,6 +205,7 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
          }
          option = option.substring(3);
       }
+      total += cartList.get(i).getPrice() * cartList.get(i).getCl_cnt();
    %>
   <span style="font-size:10px;"> 옵션 / <%= option %></span>
 </td>
@@ -215,7 +222,7 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
 <%      if (total > 50000){%>
 <span style="font-size:12px;">[기본배송]<br/>무료</span>
 <%      } else { %>
-2500
+2,500<% total += deliPrice; %>
 <%      } %>
 </td>
 <td id="chktd">
@@ -224,7 +231,6 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
 </td>
 </tr>
 <%
-      total += cartList.get(i).getPrice() * cartList.get(i).getCl_cnt();
    }
 %>
 </table>

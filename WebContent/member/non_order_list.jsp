@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
+<%@ include file="../menu.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 request.setCharacterEncoding("utf-8");
@@ -15,6 +16,7 @@ OrdListInfo ordInfo = (OrdListInfo)request.getAttribute("ordInfo");
 <link href="css/base.css" type="text/css" rel="stylesheet" />
  -->
 <style>
+#wrapper {width:100%; position:absolute; top:300px;}
 #wrapper {font-size:12px;}
 #wrapper table td {border-bottom:1px solid lightgray; align:center;}
 a:link { color:#4f4f4f; text-decoration:none; }
@@ -22,6 +24,7 @@ a:visited { color:#4f4f4f; text-decoration:none; }
 a:hover { color:pink; text-decoration:underline;  font-weight:bold;}
 a:active { color:#f00; text-decoration:none; }	
 a:focus { color:#f00; text-decoration:underline; }
+#wrapper {width:100%; position:absolute; top:300px;}
 </style>
 <script>
 function ordCancel(olid){
@@ -32,8 +35,8 @@ function ordCancel(olid){
 </script>
 </head>
 <body>
-<h2>비회원 ORDER LIST</h2>
 <div id="wrapper">
+<h2>비회원 ORDER LIST</h2>
 <table width="900" cellpadding="5" cellspacing="0" border="0">
 	<div class="head">
 	<tr style="background-color:#e1e1e1; ">

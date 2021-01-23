@@ -45,6 +45,7 @@ if (ord != null && !ord.equals(""))         args += "&ord=" + ord;
 #crtTitle th { border-top:2px solid darkgray;}
 .btngray {border:0px; color:#fff; background-color:darkgray; margin:5px;}
 .btnblue {border:0px; color:#fff; background-color:#10255F; margin:5px;}
+.btncon{border:0px; color:#fff; background-color:#10255F; margin:5px; width:130px; height:25px;}
 #chktd .btngray,#chktd .btnblue {width:85px; height:20px;}
 #seltd .btngray,#seltd .btnblue {width:130px; height:25px;}
 #alltd .btngray,#alltd .btnblue {width:160px; height:35px; font-size:20px;}
@@ -244,7 +245,7 @@ if (cartList != null && cartList.size() > 0) {   // 장바구니에 데이터가
 %>
 <tr><td colspan="6" align="center">장바구니가 비었습니다.</td></tr>
 <tr><td colspan="6" align="center">
-   <input type="button" value="계속 쇼핑" onclick="location.href='pdt_list.pdt<%=args %>';" />
+   <input type="button" class="btncon" value="계속 쇼핑" onclick="location.href='pdt_list.pdt<%=args %>';" />
 </td></tr>
 <%
 }

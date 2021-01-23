@@ -53,6 +53,7 @@ td { font-size:11; }
 #thImg img { margin:10px; }
 span {font-size:15px;}
 #divsort {width:830px; font-size:10px;}
+/* #search{ display:none; } */
 .sort {text-align:right;}
 .sort li {
 	display:inline; padding:0 3px 0 8px; no-repeat 0 3px; text-align:"center"
@@ -73,6 +74,14 @@ span {font-size:15px;}
 	width:110px; height:25px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+	$("#schchk").click(function(){
+		$("#search").slideToggle('fast');
+	});
+});
+</script>
 <script>
 <%
 String scName = null;
@@ -109,13 +118,63 @@ function setCategory(obj, target) {
 		target.options[0].selected = true;
 	}
 }
+
 </script>
 </head>
 <body>
 <h2>상품 목록 화면</h2>
+<br /><br />
+<% if( scata != null && !scata.equals("")) { %>
+<table width="800" cellpadding="5">
+<h2>Best Item</h2>
+<%
+int bestmax = 3;	// 한 행에서 보여줄 상품의 최대 개수
+if (bestPdtList != null && rcnt > 0) {	// 검색결과가 있으면
+	String lnk = "", price="", soldout = "";
+	for (int i = 0 ; i < bestPdtList.size() && i < psize ; i++) {
+		String str = "";
+		lnk = "<a href='pdt_view.pdt?id=" + bestPdtList.get(i).getPl_id() + args + "'>";
+		if (i % bestmax == 0)	out.println("<tr align=\"center\">");
+		price = bestPdtList.get(i).getPl_price() + "";
+		if (bestPdtList.get(i).getPl_discount() > 0){ // 할인율이 있으면
+			float rate = (float)bestPdtList.get(i).getPl_discount() / 100;
+			int dcPrice = Math.round(bestPdtList.get(i).getPl_price() - (bestPdtList.get(i).getPl_price() * rate));
+			price = "<del>" + price + "</del><br/> " + df.format(dcPrice) +" 원";
+		}
+		soldout = "";
+		if (bestPdtList.get(i).getPs_stock() == 0){
+			soldout = " <img src=\"/fourplay/images/soldout.png\" width='50' align='absmiddle' />";
+		}
+%>
+<td>
+	<div class="pdtBox<%=bestmax%>">
+		<%=lnk %><img src="/fourplay/product/pdt_img/<%=bestPdtList.get(i).getPl_img1() %>" width="<%=bestmax == 3 ? 250 : 190 %>" height="<%=bestmax == 3 ? 200 : 140 %>" /></a><br />
+		<%=lnk + bestPdtList.get(i).getPl_name() %></a><%= soldout %><br />
+		 <%= price %> <br/>
+	</div>
+</td>
+<%
+		if (i % bestmax == bestmax - 1)	out.println("</tr>");
+	}
+}
+%>
+</table>
+<%} %>
+<hr/>
+<div id="divsort">
+<ul class="sort">
+	<li><img src="/fourplay/images/search.png" width="18" height="18" id="schchk" /></li>
+	<li><a href="pdt_list.pdt?ord=dated<%=schArgs %>"><span>신상품순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=namea<%=schArgs %>"><span>상품명순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=priced<%=schArgs %>"><span>높은가격순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=pricea<%=schArgs %>"><span>낮은가격순</span></a></li>
+	<li><a href="pdt_list.pdt?ord=salecntd<%=schArgs %>"><span>인기순</span></a></li>
+</ul>
+</div>
+
+<div width="100%" align="center" id="search">
 <form name="frmSch" action="" method="get">
 <h2>search</h2>
-<div width="100%" align="center">
 <table width="400" cellpadding="5">
 <tr>
 <th width="30%">분류선택</th>
@@ -167,56 +226,8 @@ if (!bcata.equals("")) {	// 대분류를 이용하여 검색한 상태이면(소
 </td>
 </tr>
 </table>
-</div>
 </form>
-<br /><br />
-<% if( scata != null) { %>
-<table width="800" cellpadding="5">
-<h2>Best Item</h2>
-<%
-int bestmax = 3;	// 한 행에서 보여줄 상품의 최대 개수
-if (bestPdtList != null && rcnt > 0) {	// 검색결과가 있으면
-	String lnk = "", price="", soldout = "";
-	for (int i = 0 ; i < bestPdtList.size() && i < psize ; i++) {
-		String str = "";
-		lnk = "<a href='pdt_view.pdt?id=" + bestPdtList.get(i).getPl_id() + args + "'>";
-		if (i % bestmax == 0)	out.println("<tr align=\"center\">");
-		price = bestPdtList.get(i).getPl_price() + "";
-		if (bestPdtList.get(i).getPl_discount() > 0){ // 할인율이 있으면
-			float rate = (float)bestPdtList.get(i).getPl_discount() / 100;
-			int dcPrice = Math.round(bestPdtList.get(i).getPl_price() - (bestPdtList.get(i).getPl_price() * rate));
-			price = "<del>" + price + "</del><br/> " + df.format(dcPrice) +" 원";
-		}
-		soldout = "";
-		if (bestPdtList.get(i).getPs_stock() == 0){
-			soldout = " <img src=\"/fourplay/images/soldout.png\" width='50' align='absmiddle' />";
-		}
-%>
-<td>
-	<div class="pdtBox<%=bestmax%>">
-		<%=lnk %><img src="/fourplay/product/pdt_img/<%=bestPdtList.get(i).getPl_img1() %>" width="<%=bestmax == 3 ? 250 : 190 %>" height="<%=bestmax == 3 ? 200 : 140 %>" /></a><br />
-		<%=lnk + bestPdtList.get(i).getPl_name() %></a><%= soldout %><br />
-		 <%= price %> <br/>
-	</div>
-</td>
-<%
-		if (i % bestmax == bestmax - 1)	out.println("</tr>");
-	}
-}
-%>
-</table>
-<%} %>
-<hr/>
-<div id="divsort">
-<ul class="sort">
-	<li><a href="pdt_list.pdt?ord=dated<%=schArgs %>"><span>신상품순</span></a></li>
-	<li><a href="pdt_list.pdt?ord=namea<%=schArgs %>"><span>상품명순</span></a></li>
-	<li><a href="pdt_list.pdt?ord=priced<%=schArgs %>"><span>높은가격순</span></a></li>
-	<li><a href="pdt_list.pdt?ord=pricea<%=schArgs %>"><span>낮은가격순</span></a></li>
-	<li><a href="pdt_list.pdt?ord=salecntd<%=schArgs %>"><span>인기순</span></a></li>
-</ul>
 </div>
-
 <table width="800" cellpadding="5">
 <%
 int max = 3;	// 한 행에서 보여줄 상품의 최대 개수

@@ -34,7 +34,6 @@ public class OrdDao {
 				" c.cl_cnt, p.pl_price, p.pl_discount from t_cart_list c, t_product_list p " + 
 				" where c.pl_id = p.pl_id and p.pl_view = 'y' " + where + 
 				" order by p.pl_id, c.cl_opt ";
-				System.out.println(sql);
 			} else {	// 바로 구매를 통한 구매일 경우
 				
 			}
@@ -380,8 +379,7 @@ public class OrdDao {
 
 		return result;
 	}	
-	 public int ordCancel(String olid) {
-	// 사용자가 선택한 상품(들)을 장바구니에서 삭제하는 메소드
+	 public int ordCancel(String olid) {	// 주문 취소 클릭시 
 		int result = 0, finalResult = 0;;
 		Statement stmt = null;
 

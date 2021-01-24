@@ -24,14 +24,6 @@
 	<a href="pdt_in_form.pdta">상품등록</a><br/>
 	<a href="pdt_list.pdta">상품목록</a><br/>
 	
-	<div class="status">
-	</div>
-	<div class="sales_stat">
-	</div>
-	<div class="pdt_stat">
-	</div>
-	<div class="mem_stat">
-	</div>
 </div>
 </body>
 </html>

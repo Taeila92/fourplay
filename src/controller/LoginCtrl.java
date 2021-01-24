@@ -17,12 +17,36 @@ public class LoginCtrl extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String uid = request.getParameter("uid");
 		String pwd = request.getParameter("pwd");
+		String plid = request.getParameter("id");
+		String now = request.getParameter("now");
+		String wish = request.getParameter("wish");
+		String cnt = request.getParameter("cnt");
+		String price = request.getParameter("price");	// 실구매가
+		String buyNow = request.getParameter("buyNow"); // 바로구매로 들어왔는지 확인
+		String optCnt = request.getParameter("optCnt");
+		String optValue = request.getParameter("optValue");
+		String args = "?cpage=";
+		if(now != null && !now.equals("")) args += "&now=" + now;
+		if(cnt != null && !cnt.equals("")) args += "&cnt=" + cnt;
+		if(plid != null && !plid.equals("")) args += "&id=" + plid;
+		if(price != null && !price.equals("")) args += "&price=" + price;
+		if(buyNow != null && !buyNow.equals("")) args += "&buyNow=" + buyNow;
+		if(optCnt != null && !optCnt.equals("0")) args += "&optCnt=" + optCnt;
+		if(optValue != null && !optValue.equals("")) args += "&optValue=" + optValue;
+		
 		LoginSvc loginSvc = new LoginSvc();
 		MemberInfo loginMember = loginSvc.getLoginMember(uid, pwd);
 		if (loginMember != null) {	
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
-			response.sendRedirect("index.jsp");
+			if(now != null && now.equals("go")) {
+				response.sendRedirect("cart_in.crt" + args);
+			}else if(wish != null && wish.equals("y")) {
+				response.sendRedirect("wish_in.crt" + args);
+			}
+			else {
+				response.sendRedirect("index.jsp");
+			}
 		} else {	// 일반 회원이 아니면
 			AdminInfo adminMember = loginSvc.getAdminMember(uid, pwd);
 			if (adminMember != null) {

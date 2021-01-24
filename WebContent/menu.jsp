@@ -95,8 +95,14 @@ if(loginMember == null && adminMember == null){
          <li> <a class="sub" href="join_form.jsp" >회원가입</a> </li> 
 <%
 } else {
+	if(adminMember != null){   //관리자 계정 로그인이 되어있으면
+
 %>
-       <li> <a class="sub" href="logout" >로그아웃</a> </li>
+		 <li> <a class="sub" href='admin/a_index.jsp'>어드민으로 이동</a>&nbsp;&nbsp;&nbsp;
+<%
+   }
+%>
+       	 <li> <a class="sub" href="logout" >로그아웃</a> </li>
 <%} %>
          <li> <a class="sub" href="cart_list.crt" >장바구니</a> </li>
          <li> <a class="sub" href="mypage.mpg" >마이페이지</a> </li>
@@ -152,8 +158,8 @@ if(loginMember == null && adminMember == null){
          <li> 
             <a href="#" class="bigCatetory">COMMUNITY</a> 
             <ul class="sub_menu">
-               <li><a href="">NOTICE</a></li>
-               <li><a href="">Q&A</a></li>
+               <li><a href="bbs_list.notice">NOTICE</a></li>
+               <li><a href="brd_list.qna">Q&A</a></li>
             </ul>
          </li>
       </ul>

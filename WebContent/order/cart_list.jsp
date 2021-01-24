@@ -132,16 +132,19 @@ function allBuy(){
 }
 
 function goWish() {   // 위시리스트 담기 버튼 클릭시
-   var frm = document.frmCart;
-<%   if (loginMember != null){%>
-      frm.action = "wish_in.crt";
-      frm.submit();
-<%   } else {%>
-      if(confirm("로그인이 필요합니다. \n 로그인 하시겠습니까?")){
-         frm.action = "login_form.jsp<%=args%>";
-         frm.submit();
-      }
-<%   }%>
+	var frm = document.frmCart;
+	var wish = document.getElementById("wish");
+<%	if (loginMember != null){%>
+	wish.value = "y";
+	frm.action = "wish_in.crt";
+	frm.submit();
+<%	} else {%>
+	if(confirm("로그인이 필요합니다. \n 로그인 하시겠습니까?")){
+    	wish.value = "y";
+		frm.action = "login_form.jsp<%=args%>";
+		frm.submit();
+	}
+<%	}%>
 }
 function buyNow(){
 	allBuy();
@@ -162,6 +165,7 @@ function buyNow(){
 <input type="hidden" name="chk" value="" />
 <input type="hidden" name="idxs" value="" />
 <input type="hidden" name="kind" value="cart" />
+<input type="hidden" name="wish" id="wish" value="" />
 <div id="crtList" width="100%" align="center">
 <table width="700"  id="table1" cellpadding="10" cellspacing="0">      
 <tr id="crtTitle">

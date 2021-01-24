@@ -25,7 +25,7 @@ try{
 	conn = DriverManager.getConnection(url, "root", "1234");
 	stmt = conn.createStatement();
 	sql = "insert into t_member_list (ml_id, ml_pwd, ml_name, ml_gender, ml_birth, ml_phone, ml_email, ml_point) values " +
-			"('" + uid + "', '" + pwd + "', + '" + name + "', '" + gender + "', '" + 
+			"('" + uid + "', '" + pwd + "', '" + name + "', '" + gender + "', '" + 
 			birth + "', '" + phone + "', '" + email + "', 1000)";
 	System.out.println(sql);	
 	

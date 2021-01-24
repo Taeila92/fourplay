@@ -131,9 +131,11 @@ if(articleList.size() > 0 && rCnt > 0){
 <%
 		} if(login != null && login.getMlid().equals(articleList.get(i).getMl_id())){
 %>
+<!-- 
 		<li class="liBtn">
 			<input type="button" value="수정"  class="rBtn" onclick="location.href='review_form.review?wtype=up&idx=<%=idx %>&plid=<%=plid%>&plname=<%=plname%>';"/>
-			</li>
+		</li>
+ -->
 		<li class="liBtn"><input type="button" value="삭제"  class="rBtn" onclick="notCool(<%=idx %>);"/></li>
 <%
 		}

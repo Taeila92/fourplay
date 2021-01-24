@@ -82,7 +82,7 @@ public class APdtUpProcAction implements action.Action {
 		}
 
 		String args = multi.getParameter("args");
-		forward.setPath("product_detail.pdta" + args + "&id=" + id);
+		forward.setPath("pdt_detail.pdta" + args + "&id=" + id);
 		forward.setRedirect(true);	// 디스패쳐방식이 아닌 리다이렉트 방식으로 화면을 이동시킴
 		return forward;
 	}

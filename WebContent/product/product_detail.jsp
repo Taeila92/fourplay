@@ -41,8 +41,9 @@ if (psstock.equals("-1"))   psstock = "무제한";
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-#wrapper {width:100%; position:absolute; top:300px;}
 #none {display:none;}
+
+.detailList { width:850px; margin:0 auto;}
 .detail td { border-bottom:2px solid #efefef;}
 td .borderwide {border-bottom:4px solid #eee;}
 .detail s { color:red;}
@@ -74,11 +75,13 @@ function goCart() {   // 장바구니에 담기 버튼 클릭시
 }
 function goWish() {   // 위시리스트 담기 버튼 클릭시
    var frm = document.frmPdt;
+   var wish = document.getElementById("wish");
 <%   if (loginMember != null){%>
       frm.action = "wish_in.crt";
       frm.submit();
 <%   } else {%>
       if(confirm("로그인이 필요합니다. \n 로그인 하시겠습니까?")){
+        wish.value = "y";
          frm.action = "login_form.jsp";
          frm.submit();
       }
@@ -94,6 +97,7 @@ function goDirect() {   // 바로 구매하기 버튼 클릭시
    kind.value = "cart";   
 <%
    if (loginMember == null) {   // 로그인을 하지 않은 상태일 경우
+   session.setAttribute("url", "cart_in.crt");
 %>
       ismember.value = "n"
       now.value = "go"
@@ -126,7 +130,9 @@ function reviewIn(){
 </script>
 </head>
 <body>
-<div id="wrapper" align="center">
+<div id="wrapper">
+
+<div class="detailList">
 <h2 id="none">상품 상세보기 화면</h2>
 <table width="800" cellpadding="5" cellspacing="0">
 <tr>
@@ -159,13 +165,14 @@ function reviewIn(){
    <tr><td>소비자가</td><td><%=price %></td></tr>
    <tr><td>적립금</td><td><%=df.format(point) %> (1%)</td></tr>
    <form name="frmPdt" action="" method="post">
+   <input type="hidden" name="now" id="now" value="" />
    <input type="hidden" name="kind" id="kind" value="" />
+   <input type="hidden" name="wish" id="wish" value="" />
+   <input type="hidden" name="ismember" id="ismember" value="" />
    <input type="hidden" name="id" value="<%=id %>" />
    <input type="hidden" name="args" value="<%=args %>" />
    <input type="hidden" name="price" value="<%=price %>" />
    <input type="hidden" name="point" value="<%=point %>" />
-   <input type="hidden" name="ismember" id="ismember" value="" />
-   <input type="hidden" name="now" id="now" value="" />
 <%
 String dis = "";   // 재고파악
 int max = pdtInfo.getPs_stock();
@@ -258,6 +265,7 @@ if (pdtInfo.getPl_opt() != null && !pdtInfo.getPl_opt().equals("")) {
    </td></tr>
    </table>
 </table>
+</div>
 </div>
 </body>
 </html>

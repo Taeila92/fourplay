@@ -32,14 +32,12 @@ public class OrdFormAction implements Action {
 				where += " and c.cl_buyer = '" + loginMember.getMlid() + "' and c.cl_ismember = 'y' ";
 			}
 			
-		} else {
-			
 		}
 		OrdFormSvc ordFormSvc = new OrdFormSvc();
 		
 		if(loginMember != null) {
-			MemberViewSvc memberViewSvc = new MemberViewSvc();
-			AddrInfo addrInfo = memberViewSvc.getBasicAddr(loginMember.getMlid());
+			MembeViewSvc membeViewSvc = new MembeViewSvc();
+			AddrInfo addrInfo = membeViewSvc.getBasicAddr(loginMember.getMlid());
 
 			request.setAttribute("addrInfo", addrInfo);
 			

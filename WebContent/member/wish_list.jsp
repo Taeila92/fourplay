@@ -14,8 +14,8 @@ if(request.getParameter("cpage") != null)
 if(request.getParameter("psize") != null)
 	psize = Integer.parseInt(request.getParameter("psize"));
 
-String args = "";
-if (cpage > 0 && psize > 0)		args = "?cpage=" + cpage + "&psize=" + psize;
+String args = "?ok=";
+if (cpage > 0 && psize > 0)		args = "&cpage=" + cpage + "&psize=" + psize;
 String id, keyword, bcata, cata, scata, sprice, eprice, ord;
 keyword = request.getParameter("keyword");	bcata	= request.getParameter("bcata");	
 scata	= request.getParameter("scata");	sprice	= request.getParameter("sprice");

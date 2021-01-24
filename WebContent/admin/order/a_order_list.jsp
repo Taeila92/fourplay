@@ -55,8 +55,6 @@ function chVal(){
 <div id="wrapper">
 <%
 String plid = "";
-if(ordList != null) out.println("ordList not null");
-if(pageInfo != null) out.println("pageInfo not null");
 %>
 	<h3>주문 목록</h3>
 	<form name="listFrm" action="ord_proc.orda" method="post">

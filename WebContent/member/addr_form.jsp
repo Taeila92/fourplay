@@ -14,7 +14,7 @@ function goSubmit() {
     var frm = document.frmAddr;
     frm.action = "addr_in_proc.mpg";
     frm.submit();
-    
+    window.close;
 }
 </script>
 <body onload="window.resizeTo(500, 400);">

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../menu.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,12 +33,15 @@
 .policy-table td{text-align:center; color:#777;}
 .policy-table td:first-child{background:#eee;}
 
-.agree-box{width:80%; margin:auto; border:1px solid #eee; font-size:13px;}
-.agree-box li{padding:10px 30px;}
-.agree-box li:first-child{padding:10px 20px; fonr-size:14px; border-bottom:1px solid #eee;}
-.agree-box li:nth-child(2){border-bottom:1px dashed #eee; color:#777;}
-.agree-box .flex{display:flex;}
-.agree-box a{display:inline-block;text-decoration:none; font-size:12px; width:80px; text-align:center; background:#eee; color:#777; line-height:18px; border:1px solid #ddd;}
+.agree-box2{width:100%; border:1px solid #eee; font-size:13px;}
+.agree-box2 table{width:100%;}
+.agree-box2 tr{height:30px;}
+.agree-box2 td{border-bottom:1px solid #eee; padding:10px;}
+.agree-box2 tr:last-child td{border-bottom:none;}
+.agree-box2 .text{padding:10px 20px; line-height:20px;}
+.agree-box2 p{color:#777;}
+.agree-box2 a{display:inline-block;text-decoration:none; font-size:12px; width:80px; text-align:center; background:#eee; color:#777; line-height:18px; border:1px solid #ddd;}
+
 </style>
 <script src="jquery-3.5.1.js"></script>
 <script>
@@ -139,6 +143,7 @@ function chkAll(all) {
 </script>
 </head>
 <body>
+<div id="wrapper">
 <h2 class="join-title">Join Us</h2>
 <form name="frmJoin" action="join_proc.jsp" method="post" onsubmit="return chkData(this);">
 <input type="hidden" name="idChk" id="idChk" value="N" />
@@ -167,6 +172,7 @@ function chkAll(all) {
 </div>
 </form>
 <jsp:include page="/content.jsp"></jsp:include>
+</div>
 </body>
 </html>
 

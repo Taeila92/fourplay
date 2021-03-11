@@ -470,7 +470,7 @@ function use(box, usePnt){
 	} else {
 		usePnt.value = "0";
 		dc.innerHTML = <%=beforeDC - tPrice %>;
-		realPay.innerHTML = <%=df.format(tPrice) %>;
+		realPay.innerHTML = <%=tPrice %>;
 	}
 }
 

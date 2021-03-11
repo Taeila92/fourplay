@@ -15,7 +15,7 @@ public class AMemListAction implements action.Action {
 		HttpSession session = request.getSession();
 		AdminInfo adminMember = (AdminInfo)session.getAttribute("adminMember");
 		
-		if(adminMember != null && adminMember.getAl_id().equals("sa")) {
+		if(adminMember != null ) {
 			int cpage = 1, pcnt, spage, epage, rcnt, bsize = 10, psize = 10;
 			// 페이징에 필요한 값들을 저장할 변수 선언 및 초기화
 			if (request.getParameter("cpage") != null)			cpage = Integer.parseInt(request.getParameter("cpage"));
@@ -31,7 +31,7 @@ public class AMemListAction implements action.Action {
 				
 				where = " where ml_" + schtype + " like '%" + keyword + "%' ";
 				if (schtype.equals("status")) {
-					where = " where ml_" + schtype + " like '%" + keyword + "%' ";
+					where = " where ml_" + schtype + " like '%" + (keyword.equals("일반") ? "a" : (keyword.equals("휴면") ? "b" : "c") )+ "%' ";
 				}
 			}
 		
@@ -70,7 +70,7 @@ public class AMemListAction implements action.Action {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('접근 권한이 없습니다.');");
-			out.println("location.replace('login_form.jsp');");
+			out.println("location.replace('/fourplay/login_form.jsp');");
 			out.println("</script>");
 			out.close();
 		}

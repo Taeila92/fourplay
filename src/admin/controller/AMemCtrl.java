@@ -32,8 +32,8 @@ public class AMemCtrl extends HttpServlet {
 			case "/admin/member_list.mem" :	case "/admin/member/member_list.mem" :	// 회원 목록 화면
 				action = new AMemListAction();
 				break;
-			case "/admin/member_view.mem" :	case "/admin/member/member_view.mem" :	// 회원 정보 화면
-				action = new AMemViewAction();
+			case "/admin/member_detail.mem" :	case "/admin/member/member_detail.mem" :	// 회원 정보 화면
+				action = new AMemDetailAction();
 				break;
 		}
 		

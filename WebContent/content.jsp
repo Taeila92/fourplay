@@ -1,24 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <form name="frmChk">
 <br><br><br>
-<ul class="agree-box">
-	<li><b><input type="checkbox"  name="chk" onclick="chkAll(this);"/> 전체동의</b></div>
-	<li class="flex">
-		<div style="padding-right:100px"><b><input type="checkbox"  name="chk" value="" /> 이용약관 </b><a href="">내용보기</a></div>
-		<div><b><input type="checkbox"  name="chk" value="" /> 개인정보 수집 및 이용 안내 </b><a href="">내용보기</a></div>
-	</li>
-	<li>
-		<div><b><input type="checkbox"  name="chk" /> 마케팅 수신동의(선택)&nbsp;&nbsp;</b><b style="">( <input type="checkbox"  name="chk" value="" /> 이메일 <input type="checkbox"  name="chk" value="" /> sms )</b></div>
-		<div style="padding-top:20px; line-height:20px;">
-			<p style="color:#777;">쇼핑몰에서 제공하는 신상품 소식 / 할인 정보를 무상으로 보내드립니다!<br>단, 상품 구매 정보는 수신동의 여부와 관계없이 발송됩니다.</p>
-			<b>제공 동의를 하지 않으셔도 서비스 이용에는 문제가 없습니다.</b>
-		</div>
-	</li>
-</ul>
+<div class="agree-box2">
+	<table>
+		<tr>
+			<td colspan="2"><input type="checkbox"  name="chk" onclick="chkAll(this);"/> 전체동의</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="checkbox"  name="chk" value="" /> 이용약관
+				<a href="">내용보기</a>
+			</td>
+			<td>
+				<input type="checkbox"  name="chk" value="" /> 개인정보 수집 및 이용 안내
+				<a href="">내용보기</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="checkbox"  name="chk" /> 마케팅 수신동의(선택)&nbsp;&nbsp;( <input type="checkbox"  name="chk" value="" /> 이메일 <input type="checkbox"  name="chk" value="" /> sms )
+			</td>
+		</tr>
+	</table>
+	<div class="text">
+		<p>쇼핑몰에서 제공하는 신상품 소식 / 할인 정보를 무상으로 보내드립니다!<br>단, 상품 구매 정보는 수신동의 여부와 관계없이 발송됩니다.</p>
+		<b>제공 동의를 하지 않으셔도 서비스 이용에는 문제가 없습니다.</b>
+	</div>
+</div>
 </form>
 
 <br /><br />
-<div style="width:80%; margin:auto">
+<div>
 <b style="display:block; padding:10px 0;">이용약관</b>
 <textarea cols="80" wrap="virtual" rows="10" class="policy-textarea" readonly>
 인터넷 쇼핑몰 회원 약관
@@ -252,3 +264,4 @@
 <br />
 <p style="color:#777; font-weight:bold; font-size:12px;">귀하께서는 쇼핑몰에서 위와 같이 수집하는 개인정보에 대해, 동의하지 않거나 개인정보를 기재하지 않음으로써 거부할 수 있습니다.<br>다만, 이때 회원에게 제공되는 서비스가 제한될 수 있습니다.</p>
 </div>
+

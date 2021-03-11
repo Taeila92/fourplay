@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<title>Horizontal Bar Chart</title>
+<script src="js/Chart.min.js"></script>
+<script src="js/utils.js"></script>
+<style>
+canvas {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+</style>
+</head>
+<body>
+<div id="container" style="width: 75%;">
+	<canvas id="canvas"></canvas>
+</div>
+<script>
+
+var color = Chart.helpers.color;
+var horizontalBarChartData = {
+	labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
+	datasets: [{
+		label: '매출액',
+		backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+		borderColor: window.chartColors.red,
+		borderWidth: 1,
+		data:  [25, 40, 57, 33, 68, 52, 19]
+	
+	
+	}, {
+		label: '순이익',
+		backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+		borderColor: window.chartColors.blue,
+		data: [15, 20, 17, 13, 28, 22, 9]
+	}]
+};
+
+window.onload = function() {
+	var ctx = document.getElementById('canvas').getContext('2d');
+	window.myHorizontalBar = new Chart(ctx, {
+		type: 'horizontalBar',
+		data: horizontalBarChartData,
+		options: {
+			elements: { rectangle: { borderWidth: 2 } }, 
+			responsive: true, 
+			legend: { position: 'right' }, 
+			title: { display: true, text: '월별 매출 및 순이익(가로 막대 차트)' }
+		}
+	});
+};
+</script>
+</body>
+</html>

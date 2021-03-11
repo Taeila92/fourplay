@@ -225,8 +225,8 @@ if (pdtInfo.getPl_opt() != null && !pdtInfo.getPl_opt().equals("")) {
             <ul class="view" align="center">
                <li><strong><span>DETAIL VIEW</span></strong>&nbsp;&nbsp;&nbsp;|</li>
                <li><a href="#review"><span>REVIEW</span></a>&nbsp;&nbsp;&nbsp;|</li>
-               <li><a href="#qna"><span>Q&A</span></a></li>
-            </ul>
+<!-- <li><a href="#qna"><span>Q&A</span></a></li> -->                 
+			 </ul>
          </div>
       </td>
    </tr>
@@ -241,7 +241,7 @@ if (pdtInfo.getPl_opt() != null && !pdtInfo.getPl_opt().equals("")) {
             <ul class="view" align="center">
                <li><a href="#detail"><span>DETAIL VIEW</span></a>&nbsp;&nbsp;&nbsp;|</li>
                <li><strong><span>REVIEW</span></strong>&nbsp;&nbsp;&nbsp;|</li>
-               <li><a href="#qna"><span>Q&A</span></a></li>
+ <!-- <li><a href="#qna"><span>Q&A</span></a></li> -->              
             </ul>
          </div>
       </td>
@@ -249,6 +249,7 @@ if (pdtInfo.getPl_opt() != null && !pdtInfo.getPl_opt().equals("")) {
    <tr><td>
    <iframe src="product/review_list.review?plid=<%=id %>&plname=<%=plname %>" width="100%" height="500px" ></iframe>
    </td></tr>
+   <!-- 
    <tr>
       <td id="qna">
          <div>
@@ -260,10 +261,13 @@ if (pdtInfo.getPl_opt() != null && !pdtInfo.getPl_opt().equals("")) {
          </div>
       </td>
    </tr>
+  
    <tr><td>
    Q&A 게시판 구역<br/>
    </td></tr>
+    -->
    </table>
+   <br /><br /><br /><br /><br />
 </table>
 </div>
 </div>

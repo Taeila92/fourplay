@@ -14,6 +14,7 @@ public class AddrViewAction implements Action {
 		MemberInfo loginMember = (MemberInfo)session.getAttribute("loginMember");
 		AddrViewSvc addrViewSvc = new AddrViewSvc();
 		
+		
 		String uid = loginMember.getMlid();
 		addrList = addrViewSvc.getAddrList(uid);
 		

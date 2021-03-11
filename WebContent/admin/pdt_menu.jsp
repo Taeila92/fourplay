@@ -14,9 +14,9 @@ AdminInfo admMember = (AdminInfo)session.getAttribute("adminMember");
 <title>Insert title here</title>
 <style>
 .comMenu {
-   position:absolute; top:30%; left:25px; width:100px; border:1px solid gray;
+	position:absolute; top:30%; left:25px; width:100px; border:1px solid gray;
 }
-.comMenu ol { list-style:none; margin:0; padding:0; width:100%;}   
+.comMenu ol { list-style:none; margin:0; padding:0; width:100%;}	
 .comMenu li {list-style-type:none; margin:0; padding:0; border-bottom:1px solid gray; height:30px; }
 .selected {background-color:lightgray; }
 </style>
@@ -24,8 +24,8 @@ AdminInfo admMember = (AdminInfo)session.getAttribute("adminMember");
 <body>
 <div class="comMenu">
 <ol>
-   <li<%if(command.equals("/admin/product/product_list.jsp")) { %> class="selected" <%} %>><a href="pdt_list.pdta">상품 목록</a></li>
-   <li<%if(command.equals("/admin/product/product_in_form.jsp")) { %> class="selected" <%} %>><a href="pdt_in_form.pdta">상품 등록</a></li>
+	<li<%if(command.equals("/admin/product/product_list.jsp")) { %> class="selected" <%} %>><a href="pdt_list.pdta">상품 목록</a></li>
+	<li<%if(command.equals("/admin/product/product_in_form.jsp")) { %> class="selected" <%} %>><a href="pdt_in_form.pdta">상품 등록</a></li>
 </ol>
 </div>
 

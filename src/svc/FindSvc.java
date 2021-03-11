@@ -8,10 +8,10 @@ import vo.*;
 
 public class FindSvc {
 	public MemberInfo getMemberId(String name, String email) {
-		LoginDao loginDao = LoginDao.getInstance();
+		FindDao findDao = FindDao.getInstance();
 		Connection conn = getConnection();
-		loginDao.setConnection(conn);
-		MemberInfo memberId = loginDao.getMemberId(name, email);
+		findDao.setConnection(conn);
+		MemberInfo memberId = findDao.getMemberEId(name, email);
 		close(conn);
 
 		return memberId;

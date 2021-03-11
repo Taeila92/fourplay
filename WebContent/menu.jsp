@@ -126,7 +126,7 @@ if(loginMember == null && adminMember == null){
       <ul class="main_menu" width="900">
      <!--<li> <a href="#" class="bigCatetory">BEST</a> </li> -->    
          <li> 
-            <a href="#" class="bigCatetory">DRESS SHOES</a> 
+            <a href="pdt_list.pdt?scata=2101" class="bigCatetory">DRESS SHOES</a> 
             <ul class="sub_menu">
                <li><a href="pdt_list.pdt?scata=2101">OXFORD</a></li>
                <li><a href="pdt_list.pdt?scata=2102">WINGTIP</a></li>
@@ -135,7 +135,7 @@ if(loginMember == null && adminMember == null){
             </ul>
          </li>
          <li> 
-            <a href="#" class="bigCatetory">LOAFER</a> 
+            <a href="pdt_list.pdt?scata=3101" class="bigCatetory">LOAFER</a> 
             <ul class="sub_menu">
                <li><a href="pdt_list.pdt?scata=3101">PLAIN</a></li>
                <li><a href="pdt_list.pdt?scata=3102">PENNY</a></li>
@@ -143,20 +143,20 @@ if(loginMember == null && adminMember == null){
             </ul>
          </li>
          <li> 
-            <a href="#" class="bigCatetory">BOOTS</a> 
+            <a href="pdt_list.pdt?scata=4101" class="bigCatetory">BOOTS</a> 
             <ul class="sub_menu">
                <li><a href="pdt_list.pdt?scata=4101">PLAIN</a></li>
                <li><a href="pdt_list.pdt?scata=4102">CHELSEA</a></li>
             </ul>
          </li>
          <li> 
-            <a href="#" class="bigCatetory">ACC</a> 
+            <a href="pdt_list.pdt?scata=5101" class="bigCatetory">ACC</a> 
             <ul class="sub_menu">
                <li><a href="pdt_list.pdt?scata=5101">ACC</a></li>
             </ul>
          </li>
          <li> 
-            <a href="#" class="bigCatetory">COMMUNITY</a> 
+            <a href="bbs_list.notice" class="bigCatetory">COMMUNITY</a> 
             <ul class="sub_menu">
                <li><a href="bbs_list.notice">NOTICE</a></li>
                <li><a href="brd_list.qna">Q&A</a></li>

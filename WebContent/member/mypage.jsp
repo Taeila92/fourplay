@@ -29,7 +29,7 @@ a { text-decoration:none;}
 </head>
 <body>
 <div id="wrapper">
-<div style="width:80%;margin:auto;">
+<div>
 	<div style="display:flex;justify-content:space-between;align-items:center;padding:20px 10px;">
 		<h2>MY PAGE</h2>
 		<p><span style="color:#888;">home&nbsp;>&nbsp;</span><span>mypage</span></p>

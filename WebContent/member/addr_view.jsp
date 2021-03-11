@@ -12,6 +12,13 @@ ArrayList<AddrInfo> addrList = (ArrayList<AddrInfo>)request.getAttribute("addrLi
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="./css/reset.css" type="text/css" rel="stylesheet" />
+<style>
+table tr{height:50px; font-size:14px;}
+table tr th{background:#eee; text-align:center;}
+table td{text-indent:10px;}
+table a{display:block; width:100%; height:100%; color:#000; text-decoration:none;}
+.center{text-align:center;}
+</style>
 <script src="jquery-3.5.1.js"></script>
 <script>
 function getSelectChk() {	// 사용자가 선택한 체크박스들의 value를 추출하는 함수
@@ -56,6 +63,14 @@ function notCool(idx) {
 		});
 	}
 }
+
+function sendChildValue(addr) {
+	var addrArray = addr.split(',');
+	opener.document.frmInfo.zip.value= addrArray[0];
+	opener.document.frmInfo.addr1.value= addrArray[1];
+	opener.document.frmInfo.addr2.value= addrArray[2];
+	window.close();
+}
 </script>
 </head>
 <body onload="window.resizeTo(500, 400);">
@@ -69,8 +84,10 @@ if (loginMember != null) {
 %>
 <tr align="center">
 <td><%=addrList.get(i).getMa_zip() %></td>
-<td><%=addrList.get(i).getMa_addr1() + " " + addrList.get(i).getMa_addr2() %></td>
-<td><input type="checkbox" name="chk" value="<%=addrList.get(i).getMa_idx() %>" /></td>
+
+
+<td><a href="javascript:sendChildValue('<%=addrList.get(i).getMa_zip() %>,<%=addrList.get(i).getMa_addr1() %>,<%=addrList.get(i).getMa_addr2() %>')" ><%=addrList.get(i).getMa_addr1() + " " + addrList.get(i).getMa_addr2() %></a></td>
+<td class="center"><input type="checkbox" name="chk" value="<%=addrList.get(i).getMa_idx() %>" /></td>
 </tr>
 <%
 		}	
@@ -87,8 +104,8 @@ if (loginMember != null) {
 	}
 }
 %>
-<div align="right">
-<input type="button" value="주소추가"  />&nbsp;&nbsp;
+<div align="right" class="btn">
+<input type="button" value="주소추가" onclick="location.href='addr_form.mpg'"  />&nbsp;&nbsp;
 <input type="button" value="선택삭제" onclick="notCool(0);" />
 </div>
 </form>

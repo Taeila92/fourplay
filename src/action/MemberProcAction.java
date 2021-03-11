@@ -13,8 +13,8 @@ public class MemberProcAction implements Action {
 			ActionForward forward = new ActionForward();
 			MemberProcSvc memberProcSvc = new MemberProcSvc();
 
-			String uid = request.getParameter("uid");
-			String pwd		= request.getParameter("pwd").trim();
+			String uid 		= request.getParameter("uid");
+			String pwd		= request.getParameter("pwd");
 			String e1		= request.getParameter("e1");
 			String e2		= request.getParameter("e2");
 			String p1		= request.getParameter("p1");

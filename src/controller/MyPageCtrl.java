@@ -63,7 +63,6 @@ public class MyPageCtrl extends HttpServlet {
 		case "/addr_del.mpg" :	// 주소록 삭제 기능
 			action = new AddrDelAction();
 			break;
-			
 		case "/addr_form.mpg" :	// 주소록 추가 화면
 			action = new AddrFormAction();
 			break;

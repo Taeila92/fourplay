@@ -19,7 +19,7 @@ public class AdmListAction implements action.Action {
 		if(request.getParameter("kind") != null) 	kind = request.getParameter("kind");
 		
 		if(adminMember != null && adminMember.getAl_id().equals("sa")) {
-			int cpage = 1, pcnt, spage, epage, rcnt, bsize = 10, psize = 10;
+			int cpage = 1, pcnt, spage, epage, rcnt, bsize = 10, psize = 3;
 			// 페이징에 필요한 값들을 저장할 변수 선언 및 초기화
 			if (request.getParameter("cpage") != null)			cpage = Integer.parseInt(request.getParameter("cpage"));
 			if (request.getParameter("psize") != null)			psize = Integer.parseInt(request.getParameter("psize"));

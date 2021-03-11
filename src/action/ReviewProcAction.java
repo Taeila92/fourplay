@@ -15,7 +15,7 @@ public class ReviewProcAction implements action.Action {
 		ReviewProcSvc reviewProcSvc = new ReviewProcSvc();
 		request.setCharacterEncoding("utf-8");
 		System.out.println("ReviewProcAction");
-		String uploadPath = "C:/Users/S/git/fourplay/fourplay/WebContent/product/r_img";
+		String uploadPath = "E:/psy/jsp/work/fourplay/WebContent/product/r_img";
 		int maxSize = 5 * 1024 * 1024;		// 업로드 최대 용량으로 5MB로 지정
 		String wtype = "", plid = "", uid = "", title = "", content = "", reviewImg = "", olid = "";
 		int idx = 0; 	//수정/삭제시 필요한 리뷰 글번호

@@ -31,6 +31,8 @@ if (request.getParameter("optCnt") != null) {   // 옵션이 있으면
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+#red{color:red; font-size:10px;}
+.lginBox {width:50%; margin:10px auto; }
 
 .btn { 
    width:100px; height:80px; background-color:black;  
@@ -49,7 +51,6 @@ if (request.getParameter("optCnt") != null) {   // 옵션이 있으면
 hr {
    width:530px;
 }
-.lginBox {width:50%; margin:10px auto; }
 </style>
 <script>
 function logSubmit() {		// 로그인버튼 클릭시 실행시키는 함수
@@ -103,6 +104,7 @@ function goDirect() {
 <div id="wrapper">
 	<h2 align="center">LOGIN</h2>
 	<div class="lginBox">
+	<span id="red">관리자 계정(sa / 1234)으로 로그인시 어드민 메뉴로 이동합니다.</span>
 	<form name="frmLogin" action="login" method="post">
 	<table cellpadding="3" align="center"> 
 	<input type="hidden" name="now" id="now" value=""/>
@@ -116,10 +118,10 @@ function goDirect() {
 	<input type="hidden" name="optCnt" value="<%=optCnt %>" />
 	<input type="hidden" name="optValue" value="<%=optValue %>" />
 	<tr>
-	   <td>아이디&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="uid"  class="text" /></td>
+	   <td>아이디&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="uid" value="sungda123" class="text" /></td>
 	   <td rowspan="2" align="right"><input type="button" value="LOGIN" class="btn" onclick="logSubmit()" /></td>
 	</tr>
-	<tr><td>비밀번호&nbsp;&nbsp;&nbsp;<input type="password" name="pwd" class="text"/></td></tr>
+	<tr><td>비밀번호&nbsp;&nbsp;&nbsp;<input type="password" name="pwd"  value="1234" class="text"/></td></tr>
 	</table>
 	</form>
 	<hr />

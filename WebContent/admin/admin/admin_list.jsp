@@ -145,13 +145,13 @@ function chVal(){
 	<tr>
 	<td width="*">
 	<%
-	if (rcnt > 0) {	// 검색결과 상품들이 있을 경우에만 페이징을 함
+	if (admList != null && rcnt > 0) {	// 검색결과 상품들이 있을 경우에만 페이징을 함
 		if (cpage == 1) {
 			out.println("<<&nbsp;&nbsp;<&nbsp;&nbsp;");
 		} else {
-			out.print("<a href='pdt_list.pdta?cpage=1" + schArgs + "'>");
+			out.print("<a href='admin_list.adm?cpage=1" + schArgs + "'>");
 			out.println("<<</a>&nbsp;&nbsp;");
-			out.print("<a href='pdt_list.pdta?cpage=" + (cpage - 1) + schArgs + "'>");
+			out.print("<a href='admin_list.adm?cpage=" + (cpage - 1) + schArgs + "'>");
 			out.println("<</a>&nbsp;&nbsp;");
 		}
 	
@@ -159,7 +159,7 @@ function chVal(){
 			if (cpage == j) {
 				out.println("&nbsp;<strong>" + j + "</strong>&nbsp;");
 			} else {
-				out.print("&nbsp;<a href='pdt_list.pdta?cpage=" + j + schArgs + "'>");
+				out.print("&nbsp;<a href='admin_list.adm?cpage=" + j + schArgs + "'>");
 				out.println(j + "</a>&nbsp;");
 			}
 		}
@@ -167,11 +167,15 @@ function chVal(){
 		if (cpage == pcnt) {
 			out.println("&nbsp;&nbsp;>&nbsp;&nbsp;>>");
 		} else {
-			out.print("&nbsp;&nbsp;<a href='pdt_list.pdta?cpage=" + (cpage + 1) + schArgs + "'>");
+			out.print("&nbsp;&nbsp;<a href='admin_list.adm?cpage=" + (cpage + 1) + schArgs + "'>");
 			out.println("></a>");
-			out.print("&nbsp;&nbsp;<a href='pdt_list.pdta?cpage=" + pcnt + schArgs + "'>");
+			out.print("&nbsp;&nbsp;<a href='admin_list.adm?cpage=" + pcnt + schArgs + "'>");
 			out.println(">></a>");
 		}
+	} else {
+	%>
+	검색 결과가 없습니다.
+	<%
 	}
 	%>
 	</td>

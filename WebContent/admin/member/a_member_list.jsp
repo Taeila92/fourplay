@@ -88,8 +88,8 @@ args = "&cpage=" + cpage + schArgs;
 	for(int i = 0; i < memberList.size(); i++) {
 	%>
 		<tr>
-		<td><a href="member_view.mem?id=<%=memberList.get(i).getMlid() %>"><%=memberList.get(i).getMlid() %></a></td>
-		<td><a href="member_view.mem?name=<%=memberList.get(i).getMlname() %>"><%=memberList.get(i).getMlname() %></a></td>
+		<td><a href="member_detail.mem?id=<%=memberList.get(i).getMlid() %>"><%=memberList.get(i).getMlid() %></a></td>
+		<td><%=memberList.get(i).getMlname() %></td>
 		<td><%=memberList.get(i).getMlgender() %></td>
 		<td><%=memberList.get(i).getMlbirth() %></td>
 		<td><%=memberList.get(i).getMlpoint() %></td>
@@ -136,7 +136,9 @@ args = "&cpage=" + cpage + schArgs;
 			out.println(">></a>");
 		}
 	} else {
-		
+%>
+		<td colspan="8">검색 결과가 없습니다.
+<%
 	}
 	%>
 	</td>

@@ -100,8 +100,7 @@ if (aid.equals("sa")){
             <a href="ord_list.orda">주문 관리</a> 
          </li>
          <li> 
-  <!-- 		<a href="pdt_list.pdta">상품 관리</a>	 -->           
-            <a href="pdt_in_form.pdta">상품 관리</a> 
+  			<a href="pdt_list.pdta">상품 관리</a>	         
          </li>
          <li> 
             <a href="member_list.mem"">회원 관리</a> 

@@ -9,17 +9,15 @@ import vo.*;
 
 public class QAProcAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("QAProcAction");
+		request.setCharacterEncoding("utf-8");
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
 		AdminInfo adminMember = (AdminInfo)session.getAttribute("adminMember");
 		MemberInfo loginMember = (MemberInfo)session.getAttribute("loginMember");
-		request.setCharacterEncoding("utf-8");
+		int cpage = Integer.parseInt(request.getParameter("cpage"));
 		String wtype = request.getParameter("wtype");
-		
 		QAInfo qaInfo = new QAInfo();
-		
 		if (wtype.equals("in") || wtype.equals("up")) {
 			qaInfo.setQl_writer(request.getParameter("writer"));
 			qaInfo.setQl_title(request.getParameter("title"));
@@ -49,11 +47,11 @@ public class QAProcAction implements Action {
 			}
 			qaInfo.setQl_ip(request.getRemoteAddr());	// 등록자 IP주소 지정
 			int idx = qaProcSvc.qaInsert(qaInfo);
-			link = "brd_view.qna?idx=" + idx;
+			isSuccess = true;
+			link = "brd_view.qna?idx=" + idx + "&mlid=" + loginMember.getMlid() + "&cpage=" + cpage;
 
 		} else if (wtype.equals("up")) {
 			isSuccess = qaProcSvc.qaUpdate(qaInfo);
-			int cpage = Integer.parseInt(request.getParameter("cpage"));
 			String args = "?cpage=" + cpage;
 			String schtype = request.getParameter("schtype");
 			String keyword = request.getParameter("keyword");

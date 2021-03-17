@@ -107,7 +107,7 @@ if(loginMember == null && adminMember == null){
          <li> <a class="sub" href="cart_list.crt" >장바구니</a> </li>
          <li> <a class="sub" href="mypage.mpg" >마이페이지</a> </li>
          <li> <a class="sub" href="order_list.mpg" >주문조회</a> </li>
-         <li> <a class="sub" href="" >Q&A</a> </li>
+         <li> <a class="sub" href="brd_list.qna" >Q&A</a> </li>
       </ul>
    </div>
    <div id="logo">

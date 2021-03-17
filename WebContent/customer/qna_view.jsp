@@ -65,7 +65,7 @@ Q&A
 <tr>
 <td colspan="6">
 <textarea id="content" name="content" rows="10" cols="60" readonly="readonly">
-<%=article.getQl_content().replace("\r\n", "<br />") %></textarea>
+<%=article.getQl_content().replace("\r\n", "</br>") %></textarea>
 </td></tr>
 <tr height="30"></tr>
 <tr>

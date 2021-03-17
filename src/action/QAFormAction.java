@@ -10,7 +10,7 @@ public class QAFormAction implements Action {
 		request.setCharacterEncoding("utf-8");
 		String wtype = request.getParameter("wtype");	// 등록(in) / 수정(up) 여부
 		ActionForward forward = new ActionForward();
-
+		QAPageInfo pageInfo = new QAPageInfo();
 		if (wtype.equals("up")) {//수정이면
 			HttpSession session = request.getSession();
 			MemberInfo loginMember = (MemberInfo)session.getAttribute("loginMember");

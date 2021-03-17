@@ -8,12 +8,14 @@
 <%
 request.setCharacterEncoding("utf-8");
 String wtype = request.getParameter("wtype");
+int cpage = Integer.parseInt(request.getParameter("cpage"));
 String args = "";
 
 String msg = "수정", writer = "", title = "", content = "";
 int idx = 0;
 if (wtype.equals("in")) {
 	msg = "등록";
+	args = "?cpage=" + cpage;
 } else if (wtype.equals("up")) {	// 게시글 수정일 경우
 	QAInfo article = (QAInfo)request.getAttribute("article");
 	idx = article.getQl_idx();
@@ -21,7 +23,6 @@ if (wtype.equals("in")) {
 	title = article.getQl_title();
 	content = article.getQl_content();
 
-	int cpage = Integer.parseInt(request.getParameter("cpage"));
 	args = "?cpage=" + cpage;
 	String schtype = request.getParameter("schtype");
 	String keyword = request.getParameter("keyword");

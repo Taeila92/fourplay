@@ -220,7 +220,6 @@ public class QADao {
 			String where = " and ql_writer = '" + uid + "'";
 			
 			sql = "select * from t_qna_list where ql_idx = " + idx + where;
-			System.out.println(sql);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {

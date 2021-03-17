@@ -107,7 +107,7 @@ if (articleList != null && rcnt > 0) {	// 검색결과가 있으면
 %>
 <tr height="10"></tr>
 <tr><td colspan="5" align="right">
-<input  id="submit1" type="button" value="글쓰기" onclick="location.href='brd_form.qna?wtype=in';" />
+<input  id="submit1" type="button" value="글쓰기" onclick="location.href='brd_form.qna?wtype=in<%= args %>'" />
 </td></tr>
 </table>
 <br />
